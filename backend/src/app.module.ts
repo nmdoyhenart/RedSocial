@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 import { ArchivosModule } from './archivos/archivos.module';
 
 @Module({
@@ -21,7 +22,7 @@ import { ArchivosModule } from './archivos/archivos.module';
     }),
 
     UsersModule,
-
+    AuthModule,
     ArchivosModule,
   ],
   controllers: [],

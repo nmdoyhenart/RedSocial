@@ -13,5 +13,6 @@ import { ArchivosModule } from '../archivos/archivos.module';
   ],
   controllers: [UsersController],
   providers: [UsersService],
+  exports: [UsersService],
 })
 export class UsersModule {}
