@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user-dto';
 import { UsersService } from '../users/users.service';
 import { ArchivosService } from '../archivos/archivos.service';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth') // localhost:3000/auth
 export class AuthController {
@@ -33,5 +34,10 @@ export class AuthController {
 
         // Guardamos el usuario en Mongo llamando al servicio de usuarios
         return this.usersService.create(createUserDto);
+    }
+
+    @Post('login')
+    async login(@Body() loginDto: LoginDto) {
+        return this.authService.login(loginDto);
     }
 }

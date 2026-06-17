@@ -36,4 +36,11 @@ export class UsersService {
       throw error;
     }
   }
+
+  // Buscaqueda ya sea por correo o nombreUsuario
+  async buscarPorIdentificador(identificador: string) {
+    return this.userModel.findOne({
+      $or: [{ correo: identificador }, { nombreUsuario: identificador }],
+    }).exec();
+  }
 }
