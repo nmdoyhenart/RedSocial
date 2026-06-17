@@ -1,0 +1,55 @@
+.fogon-navbar {
+    background-color: var(--fogon-bg-dark); /* Fondo oscuro */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    /* El distintivo: un degradado sutil con los colores de la llama en el borde inferior */
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(to right, var(--fogon-secondary), var(--fogon-accent)) 1;
+}
+
+.fogon-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.fogon-logo {
+    height: 60px; /* Ajusta según el tamaño de tu logo */
+}
+
+.fogon-title-text {
+    color: var(--fogon-text-light);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.fogon-nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.fogon-link {
+    text-decoration: none;
+    color: var(--fogon-text-light);
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.fogon-link:hover {
+    background-color: rgba(116, 172, 223, 0.2); /* Sutil fondo celeste */
+    color: var(--fogon-primary);
+}
+
+.fogon-active {
+    background-color: rgba(116, 172, 223, 0.4); /* Fondo celeste más intenso */
+    color: var(--fogon-text-light);
+    border-bottom: 2px solid var(--fogon-primary);
+}

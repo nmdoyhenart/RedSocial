@@ -1,1 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+/* Definimos la paleta de colores de Fogoneados */
+:root {
+    --fogon-primary: #74ACDF;   /* Celeste bandera */
+    --fogon-secondary: #F97D36; /* Naranja llama intenso */
+    --fogon-accent: #F8C72B;    /* Amarillo llama sutil */
+    --fogon-text-dark: #333333;
+    --fogon-text-light: #F9F9F9;
+    --fogon-bg-main: #FFFFFF;
+    --fogon-bg-dark: #121212;
+    --fogon-mate-brown: #8B4513; /* Marrón mate */
+}
+
+/* Reset y tipografía moderna */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--fogon-bg-main);
+    color: var(--fogon-text-dark);
+}
+
+/* Clases de utilidad */
+.btn-fogon {
+    background-color: var(--fogon-mate-brown);
+    color: var(--fogon-text-light);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-fogon:hover {
+    background-color: #A0522D; /* Marrón un poco más claro */
+}
+
+.title-fogon {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--fogon-text-dark);
+}
