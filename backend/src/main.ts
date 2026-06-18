@@ -7,6 +7,8 @@ async function bootstrap() {
   // Validaciones globales para nuestros DTOs
   app.useGlobalPipes(new ValidationPipe());
 
+  app.enableCors();
+
   await app.listen(process.env.PORT ?? 3000);
 }
 
