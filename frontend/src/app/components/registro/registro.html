@@ -1,7 +1,7 @@
 <div class="fogon-dark-wrapper">
     <div class="elegant-glass-card">
         <div class="brand-header">
-        <img src="assets/Fogoneados-navbar.png" alt="Fogoneados Logo" class="form-logo">
+        <img src="/assets/Fogoneados-navbar.png" alt="Fogoneados Logo" class="form-logo">
         </div>
 
         <div class="form-header">
@@ -50,27 +50,40 @@
         </div>
 
         <div class="input-container">
-            <input type="password" formControlName="contrasenia" placeholder=" ">
+            <input [type]="mostrarContrasenia ? 'text' : 'password'" formControlName="contrasenia" placeholder=" ">
             <label>Contraseña</label>
-            @if (registroForm.get('contrasenia')?.touched) {
-            @if (registroForm.get('contrasenia')?.hasError('required')) {
-                <small class="error-msg pop-in">La contraseña es obligatoria.</small>
-            } @else if (registroForm.get('contrasenia')?.hasError('minlength')) {
-                <small class="error-msg pop-in">Mínimo 8 caracteres.</small>
-            } @else if (registroForm.get('contrasenia')?.hasError('pattern')) {
-                <small class="error-msg pop-in">Debe incluir mayúscula y número.</small>
+            
+            <button type="button" class="eye-btn" (click)="toggleContrasenia()">
+            @if (mostrarContrasenia) {
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
             }
+            </button>
+
+            @if (registroForm.get('contrasenia')?.touched && registroForm.get('contrasenia')?.hasError('required')) {
+            <small class="error-msg pop-in">La contraseña es obligatoria.</small>
             }
         </div>
 
         <div class="input-container">
-            <input type="password" formControlName="repetirContrasenia" placeholder=" ">
+            <input [type]="mostrarRepetir ? 'text' : 'password'" formControlName="repetirContrasenia" placeholder=" ">
             <label>Repetir Contraseña</label>
-            @if (registroForm.get('repetirContrasenia')?.touched && registroForm.get('repetirContrasenia')?.hasError('required')) {
-            <small class="error-msg pop-in">Debes repetir la contraseña.</small>
+            
+            <button type="button" class="eye-btn" (click)="toggleRepetir()">
+            @if (mostrarRepetir) {
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
             }
-            @if (registroForm.get('repetirContrasenia')?.touched && registroForm.get('repetirContrasenia')?.hasError('noCoinciden')) {
-            <small class="error-msg pop-in shake">Las contraseñas no coinciden.</small>
+            </button>
+
+            @if (registroForm.get('repetirContrasenia')?.touched) {
+            @if (registroForm.get('repetirContrasenia')?.hasError('required')) {
+                <small class="error-msg pop-in">Debes repetir la contraseña.</small>
+            } @else if (registroForm.get('repetirContrasenia')?.hasError('noCoinciden')) {
+                <small class="error-msg pop-in shake">Las contraseñas no coinciden.</small>
+            }
             }
         </div>
 
@@ -101,5 +114,28 @@
             <span>Registrarme</span>
         </button>
         </form>
+
+        @if (mostrarModal) {
+        <div class="fogon-modal-overlay">
+            <div class="fogon-modal-card pop-in">
+            
+            <h3 class="modal-title">
+                {{ esExito ? '¡Bienvenido a Fogoneados!' : 'Aviso' }}
+            </h3>
+            
+            <p class="modal-text">{{ mensajeModal }}</p>
+            
+            <button type="button" (click)="cerrarModal()" class="btn-elegant-submit modal-btn">
+                <span>{{ esExito ? 'Ir al Login' : 'Intentar de nuevo' }}</span>
+            </button>
+            
+            </div>
+        </div>
+        }
+
+        <div class="form-footer">
+            <p>¿Ya tenés tu cuenta? <a routerLink="/login" class="fogon-link-text">Iniciá sesión acá</a></p>
+        </div>
+        
     </div>
 </div>

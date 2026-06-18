@@ -37,6 +37,37 @@ export class RegistroComponent {
     }, { validators: this.passwordsIguales }); 
   }
 
+  // Variables para controlar el modal
+  mostrarModal: boolean = false;
+  mensajeModal: string = '';
+  esExito: boolean = false;
+
+  // Variables para controlar mostrar/ocultar contraseña
+  mostrarContrasenia: boolean = false;
+  mostrarRepetir: boolean = false;
+
+  toggleContrasenia() {
+    this.mostrarContrasenia = !this.mostrarContrasenia;
+  }
+
+  toggleRepetir() {
+    this.mostrarRepetir = !this.mostrarRepetir;
+  }
+
+  // Funciones para abrir y cerrar
+  abrirModal(mensaje: string, exito: boolean = false) {
+    this.mensajeModal = mensaje;
+    this.esExito = exito;
+    this.mostrarModal = true;
+  }
+
+  cerrarModal() {
+    this.mostrarModal = false;
+    if (this.esExito) {
+      this.router.navigate(['/login']); 
+    }
+  }
+
   passwordsIguales(control: AbstractControl) {
     const pass = control.get('contrasenia')?.value;
     const repPass = control.get('repetirContrasenia')?.value;
@@ -63,19 +94,18 @@ export class RegistroComponent {
     }
 
     if (!this.archivoSeleccionado) {
-      alert('La imagen de perfil es obligatoria');
+      this.abrirModal('La imagen de perfil es obligatoria.'); 
       return;
     }
 
     this.authService.registrarUsuario(this.registroForm.value, this.archivoSeleccionado)
       .subscribe({
         next: () => {
-          alert('¡Usuario registrado con éxito!');
-          this.router.navigate(['/login']);
+          this.abrirModal('¡Usuario registrado con éxito! Ya podés iniciar sesión.', true);
         },
         error: (error) => {
           console.error('Error al registrar:', error);
-          alert('Hubo un error en el registro. Revisá la consola.');
+          this.abrirModal('Hubo un error en el registro.');
         }
       });
   }

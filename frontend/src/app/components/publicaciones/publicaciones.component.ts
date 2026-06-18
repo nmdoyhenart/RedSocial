@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-publicaciones',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule], // RouterLink
   templateUrl: './publicaciones.html',
-  styleUrl: './publicaciones.css',
+  styleUrls: ['./publicaciones.css']
 })
 export class PublicacionesComponent {}

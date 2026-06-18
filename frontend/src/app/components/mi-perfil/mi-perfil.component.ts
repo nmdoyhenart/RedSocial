@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-mi-perfil',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './mi-perfil.html',
-  styleUrl: './mi-perfil.css',
+  styleUrls: ['./mi-perfil.css']
 })
 export class MiPerfilComponent {}
