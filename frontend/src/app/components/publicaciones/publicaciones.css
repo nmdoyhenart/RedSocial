@@ -1,0 +1,66 @@
+/* Contenedor principal oscuro y centrado */
+.fogon-dark-wrapper {
+    background-color: #0a0a0c; /* Mantiene el fondo oscuro */
+    min-height: calc(100vh - 80px); /* Ocupa toda la pantalla restando la navbar */
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    padding: 40px 20px;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+/* Acá debajo ya tenés tu código de .elegant-glass-card ... */
+
+/* Estilo base card */
+.elegant-glass-card, 
+.overlay-denegado {
+    background: #121215;
+    width: 100%;
+    max-width: 450px;
+    padding: 45px 40px;
+    border-radius: 28px; /* Bordes altamente redondeados y modernos */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* --- DETALLES DE LA TARJETA DE DENEGACIÓN --- */
+.denial-title {
+    color: #74ACDF; /* Tu celeste insignia */
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.denial-text {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.1rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.denial-actions {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Enlace de redirección minimalista */
+.redirect-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 400;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.redirect-link:hover {
+    color: #ffffff;
+}

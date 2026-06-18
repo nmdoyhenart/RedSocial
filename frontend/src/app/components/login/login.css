@@ -1,0 +1,371 @@
+/* Fondo oscuro total para la pantalla entera */
+.fogon-dark-wrapper {
+    background-color: #0a0a0c;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Tarjeta con efecto sutil */
+.elegant-glass-card {
+    background: #121215;
+    width: 100%;
+    max-width: 500px;
+    padding: 45px 40px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+/* Cabecera */
+.form-header {
+    margin-bottom: 35px;
+    position: relative;
+}
+
+/* --- LOGO SUPERIOR --- */
+.brand-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px; /* Separación con el título */
+}
+
+.form-logo {
+    width: 85px; /* Tamaño ideal para no robar demasiado protagonismo */
+    height: 85px;
+    object-fit: cover; /* Asegura que la imagen no se deforme */
+    border-radius: 50%; /* Lo hace circular, ideal si tu logo tiene fondo blanco */
+    border: 2px solid rgba(116, 172, 223, 0.5); /* Borde celeste semi-transparente */
+    box-shadow: 0 0 20px rgba(116, 172, 223, 0.2); /* Resplandor celeste sutil */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Pequeño efecto al pasar el mouse por encima del logo */
+.form-logo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(116, 172, 223, 0.4);
+}
+
+.elegant-title {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* Acento celeste minimalista */
+.fire-accent-line {
+    height: 2px;
+    width: 40px;
+    background: linear-gradient(90deg, #74ACDF, #A3CFF1); /* Degradado celeste */
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+.elegant-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .input-container {
+    flex: 1;
+}
+
+/* --- INPUTS FLOTANTES --- */
+.input-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 20px; 
+}
+
+.input-container input,
+.input-container textarea,
+.input-container select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 0 5px 0;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* Las etiquetas se posicionan sobre el input inicialmente */
+.input-container label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1rem;
+    pointer-events: none;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Cuando el input está en foco o tiene texto, la etiqueta flota */
+.input-container input:focus ~ label,
+.input-container input:not(:placeholder-shown) ~ label,
+.input-container textarea:focus ~ label,
+.input-container textarea:not(:placeholder-shown) ~ label,
+.static-label {
+    top: -12px !important;
+    font-size: 0.75rem !important;
+    color: #74ACDF !important; /* Celeste */
+    letter-spacing: 0.5px;
+}
+
+/* Resplandor del borde inferior al hacer foco */
+.input-container input:focus,
+.input-container textarea:focus,
+.input-container select:focus {
+    border-bottom: 1px solid #74ACDF; /* Celeste */
+    box-shadow: 0 4px 10px -8px rgba(116, 172, 223, 0.5); /* Sombra celeste */
+}
+
+/* Excepciones para select y date */
+.always-floating {
+    padding-top: 15px !important;
+    color-scheme: dark; /* Para el calendario nativo del navegador */
+}
+
+/* Inputs de Archivos limpios */
+.file-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.file-label {
+    font-size: 0.75rem;
+    color: #74ACDF; /* Celeste */
+    letter-spacing: 0.5px;
+}
+
+.elegant-file-input {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+.elegant-file-input::file-selector-button {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 15px;
+}
+
+.elegant-file-input::file-selector-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #74ACDF; /* Celeste */
+}
+
+/* Botón de Submit Elegante */
+.btn-elegant-submit {
+    margin-top: 15px;
+    background: transparent;
+    color: #fff;
+    border: 1px solid #74ACDF; /* Celeste */
+    padding: 14px;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.btn-elegant-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #74ACDF, #5A98D2); /* Degradado celeste a celeste oscuro */
+    transition: all 0.4s ease;
+    z-index: -1;
+}
+
+.btn-elegant-submit:hover::before {
+    left: 0;
+}
+
+.btn-elegant-submit:hover {
+    box-shadow: 0 0 20px rgba(116, 172, 223, 0.4); /* Resplandor celeste */
+    border-color: transparent;
+}
+
+/* --- ANIMACIONES DE VALIDACIÓN --- */
+.error-msg {
+    display: block;
+    color: #ff4757;
+    font-size: 0.75rem;
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+}
+
+/* Aparece suavemente desde abajo */
+.pop-in {
+    animation: slideUpFade 0.3s ease forwards;
+}
+
+/* Tiembla si el error es grave (como que no coinciden las contraseñas) */
+.shake {
+    animation: slideUpFade 0.3s ease forwards, shake 0.4s ease-in-out 0.3s;
+}
+
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(5px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+}
+
+/* --- FOOTER LOGIN --- */
+.form-footer {
+    margin-top: 10px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+.fogon-link-text {
+    color: #74ACDF; /* Tu celeste característico */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.fogon-link-text:hover {
+    color: #A3CFF1;
+    text-decoration: underline;
+    text-shadow: 0 0 10px rgba(116, 172, 223, 0.4);
+}
+
+/* --- MODAL  --- */
+.fogon-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(10, 10, 12, 0.8);
+    backdrop-filter: blur(5px); /* Efecto borroso en el fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* tapa la navbar y todo lo demás */
+}
+
+.fogon-modal-card {
+    background: #121215;
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(116, 172, 223, 0.3); /* Borde celeste sutil */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(116, 172, 223, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-title {
+    color: #74ACDF;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.modal-text {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.modal-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    width: 50%;
+    align-self: center; /* Centra el botón en la tarjeta */
+}
+
+/* --- BOTÓN DEL OJO (SHOW PASSWORD) --- */
+.eye-btn {
+    position: absolute;
+    right: 0;
+    top: 10px; /* Alineado a la altura del texto */
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    padding: 0 5px;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eye-btn:hover, .eye-btn:focus {
+    color: #74ACDF; /* Se ilumina con tu celeste al pasar el mouse */
+    outline: none;
+}
+
+/* Evita que una contraseña muy larga pase por debajo del ícono */
+.input-container input[type="password"],
+.input-container input[type="text"] {
+    padding-right: 35px;
+}
+
+/* --- SHOW PASSWORD --- */
+.eye-btn {
+    position: absolute;
+    right: 0;
+    top: 10px; /* Alineado a la altura del texto */
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    padding: 0 5px;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eye-btn:hover, .eye-btn:focus {
+    color: #74ACDF; /* Se ilumina con celeste al pasar el mouse */
+    outline: none;
+}
+
+/* Evita que una contraseña muy larga pase por debajo del ícono */
+.input-container input[type="password"],
+.input-container input[type="text"] {
+    padding-right: 35px;
+}
