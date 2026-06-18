@@ -1,0 +1,151 @@
+/* --- BASE DE LA NAVBAR --- */
+.fogon-navbar {
+    background-color: #121215;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Línea divisoria */
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+}
+
+/* --- LOGO Y TÍTULO (Personalidad Premium) --- */
+.fogon-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer; /* Indica que la marca es interactiva */
+  transition: transform 0.3s ease;
+}
+
+.fogon-brand:hover {
+  transform: translateY(-1px); /* Se levanta un milímetro al pasar el mouse */
+}
+
+.fogon-logo {
+  height: 48px; 
+  object-fit: contain;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(116, 172, 223, 0.1); /* Resplandor celeste inicial muy suave */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Animación naranja */
+.fogon-brand:hover .fogon-logo {
+    animation: orange-flame-flicker 1.5s infinite alternate ease-in-out;
+}
+
+/* --- ANIMACIÓN: LLAMA NARANJA --- */
+@keyframes orange-flame-flicker {
+    0% {
+        /* Estado bajo de la llama */
+        box-shadow: 
+        0 0 10px rgba(255, 87, 34, 0.8),         /* Base rojo/naranja intenso */
+        0 -8px 15px rgba(255, 152, 0, 0.5),      /* Cuerpo naranja brillante */
+        0 -15px 20px rgba(255, 193, 7, 0.2);     /* Punta amarilla difuminada */
+        transform: translateY(0) scale(1.02);
+    }
+    50% {
+        /* La llama "baila" hacia un costado */
+        box-shadow: 
+        -2px 0 12px rgba(255, 87, 34, 0.9),
+        -2px -12px 20px rgba(255, 152, 0, 0.6),
+        -2px -20px 25px rgba(255, 193, 7, 0.3);
+        transform: translateY(-1px) scale(1.04);
+    }
+    100% {
+        /* Estado alto de la llama */
+        box-shadow: 
+        2px 0 15px rgba(255, 87, 34, 1),
+        2px -15px 25px rgba(255, 152, 0, 0.7),
+        2px -25px 35px rgba(255, 193, 7, 0.4);
+        transform: translateY(-3px) scale(1.05);
+    }
+}
+
+.fogon-title-text {
+    font-size: 1.6rem;
+    margin: 0;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: baseline;
+}
+
+/* Contraste tipográfico */
+.text-bold {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.text-light {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+}
+
+/* El punto celeste iluminado */
+.text-accent {
+    color: #74ACDF;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(116, 172, 223, 0.8); /* Brillo neón sutil */
+    margin-left: 2px;
+}
+
+/* --- CONTENEDOR DE ENLACES --- */
+.fogon-nav-links {
+    list-style: none;
+    display: flex;
+    gap: 35px; /* Espacio entre botones */
+    margin: 0;
+    padding: 0;
+}
+
+/* --- ESTILO BASE DE LOS BOTONES --- */
+.fogon-link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 8px 0; 
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.fogon-link:hover {
+    color: #ffffff;
+}
+
+/* --- SUBRAYADO ANIMADO --- */
+/* Creamos una línea invisible debajo de cada enlace */
+.fogon-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%; /* Inicia sin ancho */
+    height: 2px;
+    background-color: #74ACDF;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Al pasar el mouse, la línea crece desde el centro */
+.fogon-link:hover::after {
+    width: 100%;
+}
+
+/* --- ESTADO ACTIVO (DONDE ESTÁ PARADO EL USUARIO) --- */
+.active-link {
+    color: #74ACDF !important; /* Texto celeste */
+    font-weight: 500;
+}
+
+/* El enlace activo siempre tiene la línea al 100% y con resplandor */
+.active-link::after {
+    width: 100%;
+    background: linear-gradient(90deg, #74ACDF, #A3CFF1);
+    box-shadow: 0 0 10px rgba(116, 172, 223, 0.5); /* Resplandor celeste */
+}
