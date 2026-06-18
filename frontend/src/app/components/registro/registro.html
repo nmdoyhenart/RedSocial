@@ -1,0 +1,141 @@
+<div class="fogon-dark-wrapper">
+    <div class="elegant-glass-card">
+        <div class="brand-header">
+        <img src="/assets/Fogoneados-navbar.png" alt="Fogoneados Logo" class="form-logo">
+        </div>
+
+        <div class="form-header">
+        <h2 class="elegant-title">Crea tu cuenta</h2>
+        <div class="fire-accent-line"></div>
+        </div>
+
+        <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" class="elegant-form">
+
+        <div class="form-row">
+            <div class="input-container">
+            <input type="text" formControlName="nombre" placeholder=" ">
+            <label>Nombre</label>
+            @if (registroForm.get('nombre')?.touched && registroForm.get('nombre')?.hasError('required')) {
+                <small class="error-msg pop-in">Requerido</small>
+            }
+            </div>
+
+            <div class="input-container">
+            <input type="text" formControlName="apellido" placeholder=" ">
+            <label>Apellido</label>
+            @if (registroForm.get('apellido')?.touched && registroForm.get('apellido')?.hasError('required')) {
+                <small class="error-msg pop-in">Requerido</small>
+            }
+            </div>
+        </div>
+
+        <div class="input-container">
+            <input type="email" formControlName="correo" placeholder=" ">
+            <label>Correo Electrónico</label>
+            @if (registroForm.get('correo')?.touched) {
+            @if (registroForm.get('correo')?.hasError('required')) {
+                <small class="error-msg pop-in">El correo es obligatorio.</small>
+            } @else if (registroForm.get('correo')?.hasError('email')) {
+                <small class="error-msg pop-in">Formato inválido.</small>
+            }
+            }
+        </div>
+
+        <div class="input-container">
+            <input type="text" formControlName="nombreUsuario" placeholder=" ">
+            <label>Nombre de Usuario</label>
+            @if (registroForm.get('nombreUsuario')?.touched && registroForm.get('nombreUsuario')?.hasError('required')) {
+            <small class="error-msg pop-in">El usuario es obligatorio.</small>
+            }
+        </div>
+
+        <div class="input-container">
+            <input [type]="mostrarContrasenia ? 'text' : 'password'" formControlName="contrasenia" placeholder=" ">
+            <label>Contraseña</label>
+            
+            <button type="button" class="eye-btn" (click)="toggleContrasenia()">
+            @if (mostrarContrasenia) {
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+            }
+            </button>
+
+            @if (registroForm.get('contrasenia')?.touched && registroForm.get('contrasenia')?.hasError('required')) {
+            <small class="error-msg pop-in">La contraseña es obligatoria.</small>
+            }
+        </div>
+
+        <div class="input-container">
+            <input [type]="mostrarRepetir ? 'text' : 'password'" formControlName="repetirContrasenia" placeholder=" ">
+            <label>Repetir Contraseña</label>
+            
+            <button type="button" class="eye-btn" (click)="toggleRepetir()">
+            @if (mostrarRepetir) {
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+            }
+            </button>
+
+            @if (registroForm.get('repetirContrasenia')?.touched) {
+            @if (registroForm.get('repetirContrasenia')?.hasError('required')) {
+                <small class="error-msg pop-in">Debes repetir la contraseña.</small>
+            } @else if (registroForm.get('repetirContrasenia')?.hasError('noCoinciden')) {
+                <small class="error-msg pop-in shake">Las contraseñas no coinciden.</small>
+            }
+            }
+        </div>
+
+        <div class="form-row">
+            <div class="input-container">
+            <input type="date" formControlName="fechaNacimiento" class="always-floating">
+            <label class="static-label">Fecha de Nacimiento</label>
+            @if (registroForm.get('fechaNacimiento')?.touched && registroForm.get('fechaNacimiento')?.hasError('required')) {
+                <small class="error-msg pop-in">Requerida</small>
+            }
+            </div>
+        </div>
+
+        <div class="input-container">
+            <textarea formControlName="descripcion" placeholder=" " rows="2"></textarea>
+            <label>Descripción Breve</label>
+            @if (registroForm.get('descripcion')?.touched && registroForm.get('descripcion')?.hasError('required')) {
+            <small class="error-msg pop-in">Agrega una breve descripción.</small>
+            }
+        </div>
+
+        <div class="file-container">
+            <label class="file-label">Imagen de Perfil</label>
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" class="elegant-file-input">
+        </div>
+
+        <button type="submit" class="btn-elegant-submit">
+            <span>Registrarme</span>
+        </button>
+        </form>
+
+        @if (mostrarModal) {
+        <div class="fogon-modal-overlay">
+            <div class="fogon-modal-card pop-in">
+            
+            <h3 class="modal-title">
+                {{ esExito ? '¡Bienvenido a Fogoneados!' : 'Aviso' }}
+            </h3>
+            
+            <p class="modal-text">{{ mensajeModal }}</p>
+            
+            <button type="button" (click)="cerrarModal()" class="btn-elegant-submit modal-btn">
+                <span>{{ esExito ? 'Ir al Login' : 'Intentar de nuevo' }}</span>
+            </button>
+            
+            </div>
+        </div>
+        }
+
+        <div class="form-footer">
+            <p>¿Ya tenés tu cuenta? <a routerLink="/login" class="fogon-link-text">Iniciá sesión acá</a></p>
+        </div>
+        
+    </div>
+</div>

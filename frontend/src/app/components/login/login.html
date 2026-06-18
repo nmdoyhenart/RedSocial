@@ -1,0 +1,62 @@
+<div class="fogon-dark-wrapper">
+    <div class="elegant-glass-card">
+        
+        <div class="brand-header">
+        <img src="/assets/Fogoneados-navbar.png" alt="Fogoneados Logo" class="form-logo">
+        </div>
+
+        <div class="form-header">
+        <h2 class="elegant-title">Iniciar Sesión</h2>
+        <div class="fire-accent-line"></div>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="elegant-form">
+        
+        <div class="input-container">
+            <input type="text" formControlName="identificador" placeholder=" ">
+            <label>Correo Electrónico/Usuario</label>
+            @if (loginForm.get('identificador')?.touched && loginForm.get('identificador')?.hasError('required')) {
+            <small class="error-msg pop-in">Este campo es obligatorio.</small>
+            }
+        </div>
+
+        <div class="input-container">
+            <input [type]="mostrarContrasenia ? 'text' : 'password'" formControlName="contrasenia" placeholder=" ">
+            <label>Contraseña</label>
+            
+            <button type="button" class="eye-btn" (click)="toggleContrasenia()">
+            @if (mostrarContrasenia) {
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+            }
+            </button>
+
+            @if (loginForm.get('contrasenia')?.touched && loginForm.get('contrasenia')?.hasError('required')) {
+            <small class="error-msg pop-in">La contraseña es obligatoria.</small>
+            }
+        </div>
+
+        <button type="submit" class="btn-elegant-submit">
+            <span>Ingresar</span>
+        </button>
+
+        <div class="form-footer">
+            <p>¿Aún no tenés tu cuenta? <a routerLink="/registro" class="fogon-link-text">Registrate acá</a></p>
+        </div>
+
+        </form>
+
+        @if (mostrarModal) {
+        <div class="fogon-modal-overlay">
+            <div class="fogon-modal-card pop-in">
+            <h3 class="modal-title">Aviso</h3>
+            <p class="modal-text">{{ mensajeModal }}</p>
+            <button (click)="cerrarModal()" class="btn-elegant-submit modal-btn">
+                <span>Aceptar</span>
+            </button>
+            </div>
+        </div>
+        }
+    </div>
+</div>
