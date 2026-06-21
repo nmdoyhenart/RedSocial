@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:3000'
+    apiUrl: 'https://socialnetwork-tp2-backend.onrender.com' // La ruta base de tu backend en producción
 };
