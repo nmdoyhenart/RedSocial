@@ -7,9 +7,14 @@
     </div>
     
     <ul class="fogon-nav-links">
-        <li><a routerLink="/registro" routerLinkActive="active-link" class="fogon-link">Registro</a></li>
-        <li><a routerLink="/login" routerLinkActive="active-link" class="fogon-link">Login</a></li>
         <li><a routerLink="/publicaciones" routerLinkActive="active-link" class="fogon-link">Publicaciones</a></li>
-        <li><a routerLink="/mi-perfil" routerLinkActive="active-link" class="fogon-link">Mi Perfil</a></li>
+        
+        @if (usuarioActual) {
+            <li><a routerLink="/mi-perfil" routerLinkActive="active-link" class="fogon-link">Mi Perfil</a></li>
+            <li><a (click)="cerrarSesion()" class="fogon-link" style="cursor: pointer;">Cerrar Sesión</a></li>
+        } @else {
+            <li><a routerLink="/registro" routerLinkActive="active-link" class="fogon-link">Registro</a></li>
+            <li><a routerLink="/login" routerLinkActive="active-link" class="fogon-link">Login</a></li>
+        }
     </ul>
 </nav>

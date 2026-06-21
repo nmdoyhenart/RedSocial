@@ -1,5 +1,70 @@
 <div class="fogon-dark-wrapper layout-column relative-wrapper">
-        <div class="overlay-denegado">
-        <h2 class="denial-title">EN DESAROLLO PARA EL PROXIMO SPRINT</h2>
+    <div class="feed-wrapper">  
+        
+        @if (usuarioActual) {
+            <div class="elegant-post-card">
+                <div class="form-header">
+                    <h2 class="elegant-title">Nuevo post</h2>
+                </div>
+                
+                <form class="elegant-form" (ngSubmit)="crearPublicacion()">
+                    <div class="input-container">
+                        <input type="text" name="titulo" [(ngModel)]="nuevoTitulo" placeholder="Título de la publicación" required class="elegant-input">
+                    </div>
+
+                    <div class="input-container">
+                        <textarea name="descripcion" [(ngModel)]="nuevaDescripcion" placeholder="¿Qué estás pensando, {{ usuarioActual.nombreUsuario }}?" rows="3" required class="elegant-input"></textarea>
+                    </div>
+
+                    <div class="file-input-container">
+                        <label class="elegant-file-label">
+                            <span>Subir imagen</span>
+                            <input type="file" (change)="onFileSelected($event)" accept="image/*" class="hidden-file-input">
+                        </label>
+                        <span class="file-name">{{ archivoSeleccionado ? archivoSeleccionado.name : 'Ningún archivo seleccionado' }}</span>
+                    </div>
+
+                    <div class="action-row">
+                        <button type="submit" class="btn-elegant-submit post-btn" [disabled]="creandoPost">
+                            <span>{{ creandoPost ? 'Publicando...' : 'Publicar' }}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        } @else {
+            <div class="elegant-post-card cta-invitation">
+                <h2 class="elegant-title" style="margin-bottom: 5px;">Sumate a la banda 🧉</h2>
+                <p class="cta-text">
+                    Para encender tu propio fogón, dar me gusta y participar en la comunidad, necesitás tener una cuenta.
+                </p>
+                <p class="cta-links">
+                    Si tenes una cuenta podes 
+                    <a routerLink="/login" class="celeste-link">Iniciar sesión</a> 
+                    o 
+                    <a routerLink="/registro" class="celeste-link">Registrarte</a> 
+                </p>
+            </div>
+        }
+
+        <div class="feed-filters">
+            <span class="filter-label">Ordenar por:</span>
+            <select class="elegant-select" (change)="cambiarOrden($event)">
+                <option value="fecha">Más recientes</option>
+                <option value="likes">Más fogoneados (Me gusta)</option>
+            </select>
+        </div>
+
+        <div class="feed-container">
+            @for (publicacion of publicaciones; track publicacion._id) {
+                <app-post-card 
+                    [post]="publicacion" 
+                    [usuarioActual]="usuarioActual"
+                    (postEliminado)="removerPostDeLista($event)">
+                </app-post-card>
+            } @empty {
+                <p style="color: #aaa; text-align: center; margin-top: 40px; font-style: italic;">No hay posts para mostrar.</p>
+            }
+        </div>
+
     </div>
 </div>

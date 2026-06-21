@@ -64,3 +64,385 @@
 .redirect-link:hover {
     color: #ffffff;
 }
+
+/* =========================================
+   TARJETA NUEVO FOGÓN
+========================================= */
+
+/* Contenedor principal oscuro con resplandor */
+.arcade-card {
+  background: rgba(10, 10, 12, 0.9); /* Fondo ultra oscuro, sin rastros de blanco */
+  border: 1px solid rgba(248, 199, 43, 0.4);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(248, 199, 43, 0.05);
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Línea superior animada tipo escáner */
+.arcade-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #F8C72B, transparent);
+  animation: scanline 2.5s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Cabecera y separador */
+.neon-title {
+  color: #F8C72B;
+  text-align: center;
+  font-size: 1.8rem;
+  text-shadow: 0 0 10px rgba(248, 199, 43, 0.4);
+  margin-bottom: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.neon-divider {
+  height: 2px;
+  background: #F8C72B;
+  width: 60px;
+  margin: 0 auto 25px auto;
+  box-shadow: 0 0 8px #F8C72B;
+}
+
+/* =========================================
+   INPUTS DE TEXTO
+========================================= */
+.arcade-form .input-container {
+  margin-bottom: 20px;
+}
+
+.neon-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.neon-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Animación al hacer clic en el input */
+.neon-input:focus {
+  border-color: #F8C72B;
+  box-shadow: 0 0 15px rgba(248, 199, 43, 0.3);
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* =========================================
+   INPUT DE ARCHIVO (MAGIA CSS)
+========================================= */
+.file-input-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.hidden-file-input {
+  display: none; /* Ocultamos el botón feo del navegador */
+}
+
+.neon-file-label {
+  background: transparent;
+  border: 1px solid #F8C72B;
+  color: #F8C72B;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.neon-file-label:hover {
+  background: rgba(248, 199, 43, 0.15);
+  box-shadow: 0 0 12px rgba(248, 199, 43, 0.3);
+}
+
+.file-name {
+  color: #888;
+  font-size: 0.9rem;
+  font-style: italic;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================
+   TARJETA NUEVO POST
+========================================= */
+
+.elegant-post-card {
+  background: rgba(15, 15, 18, 0.85); /* Oscuro profundo sin blancos */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Borde súper sutil */
+  border-radius: 10px;
+  padding: 35px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  /* Fuente más refinada y moderna */
+  font-family: 'Montserrat', 'Inter', 'Segoe UI', system-ui, sans-serif; 
+}
+
+/* La animación de la "Llama" pero en Celeste y más fina */
+.elegant-post-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00B4D8, transparent);
+  animation: scanline 3s ease-in-out infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* =========================================
+   CABECERA
+========================================= */
+.elegant-title {
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500; /* Le sacamos el peso extra */
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.elegant-divider {
+  height: 1px;
+  background: #00B4D8;
+  width: 30px;
+  margin: 0 auto 30px auto;
+  opacity: 0.8;
+}
+
+/* =========================================
+   INPUTS ESTILO MATERIAL (Minimalistas)
+========================================= */
+.elegant-form .input-container {
+  margin-bottom: 25px;
+}
+
+.elegant-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Solo línea inferior */
+  color: #fff;
+  padding: 10px 5px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.elegant-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 300;
+  font-style: italic;
+}
+
+.elegant-input:focus {
+  border-bottom-color: #00B4D8;
+  background: rgba(0, 180, 216, 0.02); /* Un fondo apenas perceptible al escribir */
+}
+
+/* =========================================
+   INPUT DE ARCHIVO
+========================================= */
+.file-input-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.elegant-file-label {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ccc;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.elegant-file-label:hover {
+  border-color: #00B4D8;
+  color: #00B4D8;
+}
+
+.file-name {
+  color: #777;
+  font-size: 0.85rem;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================
+   BOTÓN DE ENVIAR (Celeste)
+========================================= */
+.action-row {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-elegant-submit {
+  background: #00B4D8; /* Fondo celeste */
+  color: #ffffff;
+  border: none;
+  padding: 10px 30px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 4px; /* Bordes cuadrados suaves */
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-elegant-submit:hover:not([disabled]) {
+  background: #0096B4; /* Un celeste apenas más oscuro al pasar el mouse */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.2);
+}
+
+.btn-elegant-submit:active:not([disabled]) {
+  transform: translateY(1px);
+}
+
+.btn-elegant-submit[disabled] {
+  background: #2a2a2a;
+  color: #555;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =========================================
+   ESTRUCTURA DEL MURO (COLUMNA CENTRAL)
+========================================= */
+.feed-wrapper {
+  max-width: 680px; /* Limita el ancho al estilo de una app real */
+  width: 100%;
+  margin: 0 auto; /* El margen auto a los lados es lo que centra la columna */
+  padding: 20px 15px;
+}
+
+/* =========================================
+   TARJETA DE INVITACIÓN (Visitantes)
+========================================= */
+.cta-invitation {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  margin-bottom: 30px;
+}
+
+.cta-text {
+  color: #aaa; 
+  margin-bottom: 15px; 
+  font-size: 1.1rem;
+}
+
+.cta-links {
+  color: #ccc; 
+  font-size: 1rem;
+}
+
+.celeste-link {
+  color: #2b8bf8; /* El tono exacto que estabas usando */
+  text-decoration: underline; 
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.celeste-link:hover {
+  color: #1a6fd0; /* Se oscurece un poco al pasar el mouse */
+}
+
+/* =========================================
+   FILTROS DE ORDENAMIENTO
+========================================= */
+.feed-filters {
+  display: flex;
+  justify-content: flex-end; /* Lo alinea elegantemente a la derecha */
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 0 5px;
+}
+
+.filter-label {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.elegant-select {
+  background: rgba(15, 15, 18, 0.85);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none; /* Oculta la flecha por defecto del sistema operativo */
+  
+  /* Agregamos una flechita personalizada en color blanco */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%;
+  background-size: 10px auto;
+  padding-right: 35px;
+}
+
+.elegant-select:focus, 
+.elegant-select:hover {
+  border-color: #2b8bf8; /* El color celeste de tu interfaz */
+  background-color: rgba(43, 139, 248, 0.05);
+}
+
+.elegant-select option {
+  background: #0f0f12; /* Fondo del menú desplegable */
+  color: #fff;
+  padding: 10px;
+}

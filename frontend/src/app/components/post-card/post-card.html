@@ -1,0 +1,40 @@
+<div class="elegant-post-card">
+    <div class="post-header">
+        <div class="user-info">
+      
+        @if (post.user?.imagenPerfil) {
+            <img [src]="post.user.imagenPerfil" alt="Avatar" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid #00B4D8;">
+        } @else {
+            <div class="default-avatar">
+            {{ post.user?.nombreUsuario ? post.user.nombreUsuario.charAt(0).toUpperCase() : '?' }}
+            </div>
+        }
+
+        <div class="user-text">
+            <h3 class="post-name">{{ post.user?.nombreUsuario || 'Usuario Desconocido' }}</h3>
+            <span class="post-date">{{ post.createdAt | date:'short' }}</span>
+        </div>
+        </div>
+
+        @if (usuarioActual && usuarioActual._id === post.user?._id) {
+        <button (click)="eliminarPost()" class="btn-delete-post">Borrar</button>
+        }
+    </div>
+
+    <div class="post-body">
+        <h4 class="post-title">{{ post.title }}</h4>
+        <p class="post-desc">{{ post.description }}</p>
+        
+        @if (post.imageUrl) {
+        <div class="image-wrapper">
+            <img [src]="post.imageUrl" alt="Imagen adjunta">
+        </div>
+        }
+    </div>
+
+    <div class="post-footer">
+        <button (click)="toggleLike()" [ngClass]="{'liked': leDiLike}" class="btn-like">
+        {{ leDiLike ? '🔥 Fogoneado' : '🤍 Fogonear' }} ({{ post.likesCount || 0 }})
+        </button>
+    </div>
+</div>
