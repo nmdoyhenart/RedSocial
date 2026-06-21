@@ -140,3 +140,55 @@
 .btn-like.liked:hover {
   background: rgba(0, 180, 216, 0.1);
 }
+
+/* --- MODAL  --- */
+.fogon-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(10, 10, 12, 0.8);
+    backdrop-filter: blur(5px); /* Efecto borroso en el fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* tapa la navbar y todo lo demás */
+}
+
+.fogon-modal-card {
+    background: #121215;
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(116, 172, 223, 0.3); /* Borde celeste sutil */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(116, 172, 223, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-title {
+    color: #74ACDF;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.modal-text {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.modal-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    width: 50%;
+    align-self: center; /* Centra el botón en la tarjeta */
+}

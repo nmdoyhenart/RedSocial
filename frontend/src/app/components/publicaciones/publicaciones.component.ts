@@ -29,7 +29,9 @@ export class PublicacionesComponent implements OnInit {
   archivoSeleccionado: File | null = null;
   creandoPost: boolean = false;
 
-  
+  // Manejo modal
+  mostrarModal: boolean = false;
+  mensajeModal: string = '';
 
   constructor(
     private authService: AuthService,
@@ -46,6 +48,15 @@ export class PublicacionesComponent implements OnInit {
 
     // Cargamos sin importar si está logueado o no
     this.cargarPublicaciones();
+  }
+
+  abrirModal(mensaje: string) {
+    this.mensajeModal = mensaje;
+    this.mostrarModal = true;
+  }
+
+  cerrarModal() {
+    this.mostrarModal = false;
   }
 
   cargarPublicaciones() {
@@ -71,9 +82,8 @@ export class PublicacionesComponent implements OnInit {
   }
 
   crearPublicacion() {
-    // Validación básica
     if (!this.nuevoTitulo || !this.nuevaDescripcion || !this.usuarioActual) {
-      alert('El título y la descripción son obligatorios');
+      this.abrirModal('El título y la descripción son obligatorios');
       return;
     }
 

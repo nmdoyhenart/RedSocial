@@ -17,12 +17,19 @@ export class PostCardComponent {
   // Output para borrar el post si el padre lo elimina del back
   @Output() postEliminado = new EventEmitter<string>(); 
 
+  // Manejo modal
+  mostrarModalConfirm: boolean = false;
+
   constructor(private postsService: PostsService) {}
 
   get leDiLike(): boolean {
     if (!this.usuarioActual || !this.post.likes) return false;
     // Verificamos si el ID de nuestro usuario está en el array de likes
     return this.post.likes.includes(this.usuarioActual._id); 
+  }
+
+  abrirConfirmacion() {
+    this.mostrarModalConfirm = true;
   }
 
   toggleLike() {
@@ -45,14 +52,10 @@ export class PostCardComponent {
   }
 
   eliminarPost() {
-    if (confirm('¿Estás seguro de eliminar tu post?')) {
-      this.postsService.deletePost(this.post._id, this.usuarioActual._id).subscribe({
-        next: () => {
-          // Le avisamos al Padre que este ID ya no existe para que lo borre de la pantalla
-          this.postEliminado.emit(this.post._id);
-        },
-        error: (err) => console.error('Error al borrar', err)
-      });
-    }
+    this.mostrarModalConfirm = false;
+    this.postsService.deletePost(this.post._id, this.usuarioActual._id).subscribe({
+      next: () => this.postEliminado.emit(this.post._id),
+      error: (err) => console.error('Error al borrar', err)
+    });
   }
 }

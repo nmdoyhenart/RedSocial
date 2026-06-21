@@ -66,5 +66,17 @@
             }
         </div>
 
+        @if (mostrarModal) {
+        <div class="fogon-modal-overlay">
+            <div class="fogon-modal-card pop-in">
+                <h3 class="modal-title">Aviso</h3>
+                <p class="modal-text">{{ mensajeModal }}</p>
+                <button (click)="cerrarModal()" class="btn-elegant-submit modal-btn">
+                    <span>Aceptar</span>
+                </button>
+            </div>
+        </div>
+    }
+
     </div>
 </div>

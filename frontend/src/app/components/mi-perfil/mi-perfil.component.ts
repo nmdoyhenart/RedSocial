@@ -47,7 +47,7 @@ export class MiPerfilComponent implements OnInit {
   }
 
   cerrarSesion() {
-    this.authService.cerrarSesion(); // O authService.cerrarSesion() dependiendo de cómo lo llamaste
+    this.authService.cerrarSesion();
     this.router.navigate(['/login']);
   }
   
