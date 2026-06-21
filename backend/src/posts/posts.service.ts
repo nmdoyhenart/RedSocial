@@ -30,10 +30,11 @@ export class PostsService {
 
         // Ejecutamos la consulta
         const posts = await this.postModel.find(filter)
-        .sort(sortQuery)
-        .skip(offset)
-        .limit(limit)
-        .populate('user', 'identificador imagenPerfil');
+            .populate('user', 'nombreUsuario imagenPerfil') // Solo una vez
+            .sort(sortQuery)
+            .skip(offset)
+            .limit(limit)
+            .exec();
 
         // Contamos el total
         const total = await this.postModel.countDocuments(filter);
