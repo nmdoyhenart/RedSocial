@@ -1,35 +1,34 @@
-Red Social (Programación IV - TP #2)
-📌 Descripción General
+## Red Social
 
-Este proyecto consiste en el desarrollo de una Red Social utilizando:
+## Trabajo Práctico #2 **Programación IV**.
 
-Frontend: Angular
-Backend: NestJS
-Base de Datos: MongoDB
-Autenticación: JWT
+# 📖 Descripción
 
-La aplicación permite a los usuarios registrarse, iniciar sesión, crear publicaciones, reaccionar con "Me gusta", comentar contenido y administrar perfiles. Además, cuenta con funcionalidades de administración y estadísticas avanzadas.
+Red Social desarrollada con **Angular**, **NestJS** y **MongoDB**, donde los usuarios pueden registrarse, iniciar sesión, crear publicaciones, comentar, reaccionar con "Me gusta", compartir contenido y administrar sus perfiles.
 
-🚀 Planificación por Sprints
-Sprint 1 - Base del Proyecto
-Frontend
-Creación del proyecto Angular.
-Desarrollo de las pantallas:
-Login
-Registro
-Publicaciones
-Mi Perfil
-Navegación entre componentes.
-Deploy inicial.
-Implementación de favicon personalizado.
-Formularios con validaciones.
-Backend
-Creación del proyecto NestJS.
-Módulos:
-Autenticación
-Usuarios
-Publicaciones
-Registro de usuarios.
-Login de usuarios.
-Encriptación de contraseñas.
-Carga y almacenamiento de imágenes de perfil.
+La aplicación cuenta con autenticación mediante **JWT**, gestión de roles (Usuario y Administrador), paneles de estadísticas y funcionalidades avanzadas distribuidas en distintos sprints.
+
+---
+
+# 🚀 Desarrollo por Sprints
+
+## Sprint 1 - Estructura Inicial
+
+### Frontend
+- Creación del proyecto Angular.
+- Pantallas de Login, Registro, Publicaciones y Mi Perfil.
+- Navegación entre componentes.
+- Deploy inicial.
+- Formularios con validaciones.
+- Favicon personalizado.
+
+### Backend
+- Creación del proyecto NestJS.
+- Módulos de:
+  - Autenticación
+  - Usuarios
+  - Publicaciones
+- Registro de usuarios.
+- Login.
+- Encriptación de contraseñas.
+- Almacenamiento de imágenes de perfil.
