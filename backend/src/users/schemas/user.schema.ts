@@ -12,7 +12,7 @@ export type UserDocument = HydratedDocument<User>;
 @Schema({ timestamps: true })
 export class User {
   @Prop({ required: true })
-  nombre!: string; // Agregamos "!" para evitar el error de inicialización estricta
+  nombre!: string;
 
   @Prop({ required: true })
   apellido!: string;
