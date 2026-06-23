@@ -25,11 +25,11 @@ export class AuthService {
     formData.append('imagen', imagen);
 
     // Hacamos la petición al servidor
-    return this.http.post(`${this.apiUrl}/registro`, formData);
+    return this.http.post(`${this.apiUrl}/auth/registro`, formData);
   }
 
   loginUsuario(credenciales: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credenciales);
+    return this.http.post(`${this.apiUrl}/auth/login`, credenciales);
   }
 
   // --- MANEJO DE SESIÓN ---
