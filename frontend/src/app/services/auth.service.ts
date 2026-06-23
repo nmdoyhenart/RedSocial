@@ -14,7 +14,7 @@ export class AuthService {
   registrarUsuario(datosFormulario: any, imagen: File): Observable<any> {
     const formData = new FormData();
 
-  // Iteramos los campos y descartamos el que no le sirve al backend
+    // Iteramos los campos y descartamos el que no le sirve al backend
   Object.keys(datosFormulario).forEach(key => {
     if (key !== 'repetirContrasenia') {
       formData.append(key, datosFormulario[key]);
