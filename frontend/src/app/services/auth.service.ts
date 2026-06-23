@@ -7,70 +7,60 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/auth`; // ${environment.apiUrl}/auth`; // 
+  private apiUrl = `${environment.apiUrl}/auth`;
+
+  private usuarioSubject = new BehaviorSubject<any>(this.obtenerUsuarioDeStorage());
+  public usuarioActual$ = this.usuarioSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  private usuarioSubject = new BehaviorSubject<any>(this.obtenerUsuarioDeStorage());
-  
-  public usuarioActual$ = this.usuarioSubject.asObservable();
-
+  // Busca en la memoria al iniciar
   private obtenerUsuarioDeStorage() {
     const userString = localStorage.getItem('usuarioActual');
     
-    if (!userString) return null; // Si no hay nada, devuelve null
+    if (!userString) return null;
 
     try {
       return JSON.parse(userString);
     } catch (error) {
-      // Si el JSON está corrupto (bugeado), limpia la memoria y devuelve null
       console.warn('Datos de sesión corruptos detectados. Limpiando...');
       localStorage.removeItem('usuarioActual');
       return null;
     }
   }
 
-  // Recibe los datos del componente
   registrarUsuario(datosFormulario: any, imagen: File): Observable<any> {
     const formData = new FormData();
 
-  // Iteramos los campos y descartamos el que no le sirve al backend
-  Object.keys(datosFormulario).forEach(key => {
-    if (key !== 'repetirContrasenia') {
-      formData.append(key, datosFormulario[key]);
-    }
-  });
+    Object.keys(datosFormulario).forEach(key => {
+      if (key !== 'repetirContrasenia') {
+        formData.append(key, datosFormulario[key]);
+      }
+    });
 
-    // Adjuntamos el archivo
     formData.append('imagen', imagen);
 
-    // Hacamos la petición al servidor
     return this.http.post(`${this.apiUrl}/registro`, formData);
   }
 
-  // LOGIN: Guarda en memoria y avisa
   loginUsuario(credenciales: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credenciales).pipe(
       tap((respuesta: any) => {
+        // Guardamos con la clave 'usuarioActual'
         localStorage.setItem('usuarioActual', JSON.stringify(respuesta));
+
+        // Avisamos que alguien se logeó
         this.usuarioSubject.next(respuesta);
       })
     );
   }
 
   // --- MANEJO DE SESIÓN ---
-  setUsuarioActual(usuario: any) {
-    // Guardamos el objeto entero del usuario en el navegador
-    localStorage.setItem('fogon_usuario', JSON.stringify(usuario));
-  }
-
+  // Método sincrónico limpio para los componentes que necesitan el dato actualmente
   getUsuarioActual() {
-    // Recuperamos el usuario. Si no hay nadie, devolvemos null
-    const usuarioString = localStorage.getItem('fogon_usuario');
-    return usuarioString ? JSON.parse(usuarioString) : null;
+    return this.usuarioSubject.getValue();
   }
 
-  // Borra la memoria y avisa
   cerrarSesion() {
     localStorage.removeItem('usuarioActual');
     this.usuarioSubject.next(null);

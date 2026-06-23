@@ -116,21 +116,17 @@
         </form>
 
         @if (mostrarModal) {
-        <div class="fogon-modal-overlay">
-            <div class="fogon-modal-card pop-in">
-            
-            <h3 class="modal-title">
-                {{ esExito ? '¡Bienvenido a Fogoneados!' : 'Aviso' }}
-            </h3>
-            
-            <p class="modal-text">{{ mensajeModal }}</p>
-            
-            <button type="button" (click)="cerrarModal()" class="btn-elegant-submit modal-btn">
-                <span>{{ esExito ? 'Ir al Login' : 'Intentar de nuevo' }}</span>
-            </button>
-            
+            <div class="fogon-modal-overlay">
+                <div class="fogon-modal-card pop-in">
+                    <h3 class="modal-title">Aviso</h3>
+                    <p class="modal-text">{{ mensajeModal }}</p>
+                    
+                    <button type="button" (click)="cerrarModal()" class="btn-elegant-submit modal-btn">
+                        <span>Aceptar</span>
+                    </button>
+                    
+                </div>
             </div>
-        </div>
         }
 
         <div class="form-footer">
