@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://socialnetwork-tp2-backend.onrender.com/';
+  private apiUrl = 'https://socialnetwork-tp2-backend.onrender.com';
 
   constructor(private http: HttpClient) {}
 
