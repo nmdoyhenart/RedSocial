@@ -103,4 +103,24 @@ export class PostsService {
 
         return { mensaje: 'Me gusta quitado' };
     }
+
+    async getPosts(limit: string, offset: string, orderBy: string) {
+    // Convertimos las cadenas de texto de la URL en numeros
+    const numericLimit = parseInt(limit, 10) || 5;
+    const numericOffset = parseInt(offset, 10) || 0;
+
+    const orden = orderBy === 'likes' ? '-likesCount' : '-createdAt';
+
+    // Ejecutamos la consulta usando los numeros limpios
+    const posts = await this.postModel.find()
+        .populate('user', 'nombreUsuario imagenPerfil') // Traemos los datos del usuario
+        .sort(orden)
+        .skip(numericOffset) // Salta los posts de páginas anteriores
+        .limit(numericLimit) // Limita la cantidad
+        .exec();
+
+    const total = await this.postModel.countDocuments().exec();
+
+    return { posts, total };
+    }
 }

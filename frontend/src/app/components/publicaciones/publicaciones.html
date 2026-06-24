@@ -66,6 +66,22 @@
             }
         </div>
 
+        @if (totalPosts > limit) {
+            <div class="pagination-actions">
+                <button (click)="paginaAnterior()" [disabled]="!tienePaginaAnterior" class="btn-page">
+                    <span>Anterior</span>
+                </button>
+                
+                <span class="page-indicator">
+                    Página {{ paginaActual }} de {{ totalPaginas }}
+                </span>
+                
+                <button (click)="paginaSiguiente()" [disabled]="!tienePaginaSiguiente" class="btn-page">
+                    <span>Siguiente</span>
+                </button>
+            </div>
+        }
+
         @if (mostrarModal) {
         <div class="fogon-modal-overlay">
             <div class="fogon-modal-card pop-in">

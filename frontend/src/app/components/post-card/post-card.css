@@ -192,3 +192,54 @@
     width: 50%;
     align-self: center; /* Centra el botón en la tarjeta */
 }
+
+/* --- BOTONES DEL MODAL DE CONFIRMACIÓN --- */
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Botón Cancelar (Estilo Neutro/Celeste Neón) */
+.btn-cancel {
+    background: transparent;
+    color: #00B4D8;
+    border: 1px solid rgba(0, 180, 216, 0.4);
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.btn-cancel:hover {
+    background: rgba(0, 180, 216, 0.1);
+    border-color: #00B4D8;
+    box-shadow: 0 0 12px rgba(0, 180, 216, 0.3);
+}
+
+/* Botón Eliminar (Estilo Destructivo/Rojo Neón) */
+.btn-eliminar {
+    background: rgba(220, 53, 69, 0.05);
+    color: #ff4d4d;
+    border: 1px solid rgba(220, 53, 69, 0.5);
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.btn-eliminar:hover {
+    background: #dc3545;
+    color: #ffffff;
+    border-color: #ff4d4d;
+    box-shadow: 0 0 15px rgba(220, 53, 69, 0.4);
+}

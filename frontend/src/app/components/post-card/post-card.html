@@ -17,7 +17,7 @@
         </div>
 
         @if (usuarioActual && usuarioActual._id === post.user?._id) {
-        <button (click)="eliminarPost()" class="btn-delete-post">Borrar</button>
+        <button (click)="abrirConfirmacion()" class="btn-delete-post">Borrar</button>
         }
     </div>
 
@@ -39,20 +39,23 @@
     </div>
 
     @if (mostrarModalConfirm) {
-    <div class="fogon-modal-overlay">
-        <div class="fogon-modal-card pop-in">
-            <h3 class="modal-title">Confirmar</h3>
-            <p class="modal-text">¿Estás seguro de que querés eliminar este fogón?</p>
-            
-            <div class="modal-actions" style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
-                <button (click)="mostrarModalConfirm = false" class="btn-elegant-submit" style="background: #444;">
-                    <span>Cancelar</span>
-                </button>
-                <button (click)="eliminarPost()" class="btn-elegant-submit" style="background: #cc3333;">
-                    <span>Eliminar</span>
-                </button>
+        <div class="fogon-modal-overlay">
+            <div class="fogon-modal-card pop-in">
+                <h3 class="modal-title">Confirmar</h3>
+                <p class="modal-text">¿Estás seguro de que querés eliminar este post?</p>
+                
+                <div class="modal-actions">
+                    
+                    <button (click)="mostrarModalConfirm = false" class="btn-cancel">
+                        <span>Cancelar</span>
+                    </button>
+                    
+                    <button (click)="eliminarPost()" class="btn-eliminar">
+                        <span>Eliminar</span>
+                    </button>
+                    
+                </div>
             </div>
         </div>
-    </div>
     }
 </div>

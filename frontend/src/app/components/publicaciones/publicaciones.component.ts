@@ -87,6 +87,7 @@ export class PublicacionesComponent implements OnInit {
       return;
     }
 
+    // Ecendemos el spinner
     this.creandoPost = true;
 
     // Armamos el FormData
@@ -95,7 +96,6 @@ export class PublicacionesComponent implements OnInit {
     formData.append('description', this.nuevaDescripcion);
     formData.append('user', this.usuarioActual._id);
     
-    // El backend espera que el archivo se llame 'imagen'
     if (this.archivoSeleccionado) {
       formData.append('imagen', this.archivoSeleccionado);
     }
@@ -103,20 +103,27 @@ export class PublicacionesComponent implements OnInit {
     // Llamamos al servicio
     this.postsService.createPost(formData).subscribe({
       next: (nuevoPost) => {
+        // Le asignamos el usuario actual para que la tarjeta pueda dibujar el avatar y el nombreUsuario
         nuevoPost.user = this.usuarioActual;
 
-        // unshift() mete el post al PRINCIPIO del array, mostrándolo inmediatamente en pantalla
-        this.publicaciones.unshift(nuevoPost);
+        // Creamos un array nuevo poniendo el post nuevo primero, y después el resto.
+        // obligamos a repintar el HTML
+        this.publicaciones = [nuevoPost, ...this.publicaciones];
 
-        // Limpiamos el formulario
+        // Limpiamos el formulario y apagamos el spinner
         this.nuevoTitulo = '';
         this.nuevaDescripcion = '';
         this.archivoSeleccionado = null;
         this.creandoPost = false;
+
+        // Avisamos que hay cambios
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error al crear post:', err);
-        this.creandoPost = false;
+        this.creandoPost = false; // Apagamos el estado de carga si falla
+        this.cdr.detectChanges();
+        this.abrirModal('Ocurrió un error al encender el fogón. Intentá de nuevo.');
       }
     });
   }
@@ -134,5 +141,36 @@ export class PublicacionesComponent implements OnInit {
 
   removerPostDeLista(postId: string) {
     this.publicaciones = this.publicaciones.filter(p => p._id !== postId);
+  }
+
+  paginaSiguiente() {
+    if (this.offset + this.limit < this.totalPosts) {
+      this.offset += this.limit;
+      this.cargarPublicaciones();
+    }
+  }
+
+  paginaAnterior() {
+    if (this.offset - this.limit >= 0) {
+      this.offset -= this.limit;
+      this.cargarPublicaciones();
+    }
+  }
+
+  // Getters reactivos para controlar los botones en el HTML
+  get tienePaginaSiguiente(): boolean {
+    return this.offset + this.limit < this.totalPosts;
+  }
+
+  get tienePaginaAnterior(): boolean {
+    return this.offset > 0;
+  }
+
+  get paginaActual(): number {
+    return (this.offset / this.limit) + 1;
+  }
+
+  get totalPaginas(): number {
+    return Math.ceil(this.totalPosts / this.limit) || 1;
   }
 }
