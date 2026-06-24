@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ArchivosModule } from './archivos/archivos.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ArchivosModule } from './archivos/archivos.module';
     UsersModule,
     AuthModule,
     ArchivosModule,
+    PostsModule,
   ],
   controllers: [],
   providers: [],

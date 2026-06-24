@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './schemas/user.schema';
@@ -28,16 +28,27 @@ export class UsersService {
       return await newUser.save();
     } catch (error) {
       if (typeof error === 'object' && error !== null && 'code' in error) {
-        const mongoError = error as { code: number };
-        if (mongoError.code === 11000) {
-          throw new BadRequestException('El correo o nombre de usuario ya está registrado.');
+        
+        // Ampliamos el molde para que la propiedad 'keyPattern'
+        // que Mongo envía cuando hay un dato duplicado
+        const mongoError = error as { code: number; keyPattern?: Record<string, number> };
+        
+        if (mongoError.code === 11000 && mongoError.keyPattern) {
+          if (mongoError.keyPattern.correo) {
+            throw new ConflictException('Este correo electrónico ya está registrado.');
+          }
+
+          if (mongoError.keyPattern.nombreUsuario) {
+            throw new ConflictException('Este nombre de usuario ya está en uso.');
+          }
         }
       }
+
       throw error;
     }
   }
 
-  // Buscaqueda ya sea por correo o nombreUsuario
+  // Busqueda ya sea por correo o nombreUsuario
   async buscarPorIdentificador(identificador: string) {
     return this.userModel.findOne({
       $or: [{ correo: identificador }, { nombreUsuario: identificador }],

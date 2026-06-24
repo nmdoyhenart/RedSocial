@@ -1,50 +1,68 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://socialnetwork-tp2-backend.onrender.com';
+  private apiUrl = `${environment.apiUrl}/auth`;
+
+  private usuarioSubject = new BehaviorSubject<any>(this.obtenerUsuarioDeStorage());
+  public usuarioActual$ = this.usuarioSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  // Recibe los datos del componente
+  // Busca en la memoria al iniciar
+  private obtenerUsuarioDeStorage() {
+    const userString = localStorage.getItem('usuarioActual');
+    
+    if (!userString) return null;
+
+    try {
+      return JSON.parse(userString);
+    } catch (error) {
+      console.warn('Datos de sesión corruptos detectados. Limpiando...');
+      localStorage.removeItem('usuarioActual');
+      return null;
+    }
+  }
+
   registrarUsuario(datosFormulario: any, imagen: File): Observable<any> {
     const formData = new FormData();
 
-    // Iteramos los campos y descartamos el que no le sirve al backend
-  Object.keys(datosFormulario).forEach(key => {
-    if (key !== 'repetirContrasenia') {
-      formData.append(key, datosFormulario[key]);
-    }
-  });
+    Object.keys(datosFormulario).forEach(key => {
+      if (key !== 'repetirContrasenia') {
+        formData.append(key, datosFormulario[key]);
+      }
+    });
 
-    // Adjuntamos el archivo
     formData.append('imagen', imagen);
 
-    // Hacamos la petición al servidor
-    return this.http.post(`${this.apiUrl}/auth/registro`, formData);
+    return this.http.post(`${this.apiUrl}/registro`, formData);
   }
 
   loginUsuario(credenciales: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/login`, credenciales);
+    return this.http.post(`${this.apiUrl}/login`, credenciales).pipe(
+      tap((respuesta: any) => {
+        // Guardamos con la clave 'usuarioActual'
+        localStorage.setItem('usuarioActual', JSON.stringify(respuesta));
+
+        // Avisamos que alguien se logeó
+        this.usuarioSubject.next(respuesta);
+      })
+    );
   }
 
   // --- MANEJO DE SESIÓN ---
-  setUsuarioActual(usuario: any) {
-    // Guardamos el objeto entero del usuario en el navegador
-    localStorage.setItem('fogon_usuario', JSON.stringify(usuario));
-  }
-
+  // Método sincrónico limpio para los componentes que necesitan el dato actualmente
   getUsuarioActual() {
-    // Recuperamos el usuario. Si no hay nadie, devolvemos null
-    const usuarioString = localStorage.getItem('fogon_usuario');
-    return usuarioString ? JSON.parse(usuarioString) : null;
+    return this.usuarioSubject.getValue();
   }
 
   cerrarSesion() {
-    localStorage.removeItem('fogon_usuario');
+    localStorage.removeItem('usuarioActual');
+    this.usuarioSubject.next(null);
   }
 }

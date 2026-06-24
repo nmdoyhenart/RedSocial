@@ -1,0 +1,245 @@
+/* Contenedor principal idéntico al formulario */
+.elegant-post-card {
+  background: rgba(15, 15, 18, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 25px 30px;
+  margin-bottom: 20px;
+  font-family: 'Montserrat', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.elegant-post-card:hover {
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* --- CABECERA --- */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.default-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #00B4D8;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 180, 216, 0.3);
+}
+
+.post-name {
+  margin: 0;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.post-date {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* Botón Borrar más sutil (Rojizo) */
+.btn-delete-post {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-delete-post:hover {
+  background: rgba(220, 53, 69, 0.2);
+  border-color: #dc3545;
+}
+
+/* --- CUERPO --- */
+.post-title {
+  margin: 0 0 10px 0;
+  color: #00B4D8;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.post-desc {
+  color: #ccc;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+/* Contenedor estricto para la imagen */
+.image-wrapper {
+  width: 100%;
+  height: 350px; /* Altura Fija: Podés subirlo a 400px o bajarlo a 300px según te guste */
+  margin-top: 15px;
+  border-radius: 8px;
+  overflow: hidden; /* Esconde cualquier parte de la foto que se salga de la caja */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: #0a0a0c; /* Fondo oscuro mientras carga la foto */
+}
+
+/* La imagen se adapta a la caja obligatoriamente */
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* MAGIA: Recorta la foto sin aplastarla ni estirarla */
+  object-position: center; /* Se asegura de mostrar siempre el centro de la foto */
+  display: block;
+}
+
+/* --- PIE DE PUBLICACIÓN (Likes) --- */
+.post-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.btn-like {
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-like:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ddd;
+}
+
+/* Estado cuando ya le diste me gusta */
+.btn-like.liked {
+  color: #00B4D8;
+}
+
+.btn-like.liked:hover {
+  background: rgba(0, 180, 216, 0.1);
+}
+
+/* --- MODAL  --- */
+.fogon-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(10, 10, 12, 0.8);
+    backdrop-filter: blur(5px); /* Efecto borroso en el fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* tapa la navbar y todo lo demás */
+}
+
+.fogon-modal-card {
+    background: #121215;
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(116, 172, 223, 0.3); /* Borde celeste sutil */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(116, 172, 223, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-title {
+    color: #74ACDF;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.modal-text {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.modal-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    width: 50%;
+    align-self: center; /* Centra el botón en la tarjeta */
+}
+
+/* --- BOTONES DEL MODAL DE CONFIRMACIÓN --- */
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Botón Cancelar (Estilo Neutro/Celeste Neón) */
+.btn-cancel {
+    background: transparent;
+    color: #00B4D8;
+    border: 1px solid rgba(0, 180, 216, 0.4);
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.btn-cancel:hover {
+    background: rgba(0, 180, 216, 0.1);
+    border-color: #00B4D8;
+    box-shadow: 0 0 12px rgba(0, 180, 216, 0.3);
+}
+
+/* Botón Eliminar (Estilo Destructivo/Rojo Neón) */
+.btn-eliminar {
+    background: rgba(220, 53, 69, 0.05);
+    color: #ff4d4d;
+    border: 1px solid rgba(220, 53, 69, 0.5);
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.btn-eliminar:hover {
+    background: #dc3545;
+    color: #ffffff;
+    border-color: #ff4d4d;
+    box-shadow: 0 0 15px rgba(220, 53, 69, 0.4);
+}

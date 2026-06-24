@@ -1,5 +1,63 @@
-<div class="fogon-dark-wrapper">
-        <div class="overlay-denegado">
-        <h2 class="denial-title">EN DESAROLLO PARA EL PROXIMO SPRINT</h2>
+<div class="fogon-dark-wrapper layout-column relative-wrapper">
+        <div class="feed-wrapper">
+
+                @if (usuario) {
+                <div class="elegant-post-card">
+                        
+                        <div class="profile-header">
+                        <div class="avatar-wrapper">
+                                @if (usuario.imagenPerfil) {
+                                <img [src]="usuario.imagenPerfil" alt="Mi Foto" class="profile-avatar">
+                                } @else {
+                                <div class="default-avatar-large">
+                                        {{ usuario.nombreUsuario ? usuario.nombreUsuario.charAt(0).toUpperCase() : '?' }}
+                                </div>
+                                }
+                        </div>
+                        
+                        <h2 class="elegant-title">{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+                        <span class="profile-role">@{{ usuario.nombreUsuario }} • {{ usuario.perfil }}</span>
+                        </div>
+
+                        <div class="profile-info-grid">
+                        <div class="info-group">
+                                <span class="info-label">Correo Electrónico</span>
+                                <span class="info-value">{{ usuario.correo }}</span>
+                        </div>
+                        
+                        <div class="info-group">
+                                <span class="info-label">Fecha de Nacimiento</span>
+                                <span class="info-value">{{ (usuario.fechaNacimiento | date:'dd/MM/yyyy') || '--/--/----' }}</span>
+                        </div>
+                        
+                        <div class="info-group desc-box">
+                                <span class="info-label">Descripción</span>
+                                <p class="info-value desc-text">{{ usuario.descripcion || 'No hay descripción disponible.' }}</p>
+                        </div>
+                        </div>
+                </div>
+
+                <h3 class="elegant-section-title">Mis últimos posts</h3>
+                
+                <div class="feed-container">
+                        @for (post of misPosts; track post._id) {
+                        <app-post-card 
+                                [post]="post" 
+                                [usuarioActual]="usuario"
+                                (postEliminado)="removerPostDeLista($event)">
+                        </app-post-card>
+                        } @empty {
+                        <p class="empty-msg">Todavía no encendiste ningún fogón.</p>
+                        }
+                </div>
+
+                } @else {
+                <div class="elegant-post-card cta-invitation">
+                        <h2 class="elegant-title">Acceso Denegado</h2>
+                        <p class="cta-text">Debes iniciar sesión para ver los detalles de tu perfil.</p>
+                        <a routerLink="/login" class="celeste-link">Ir al Login</a>
+                </div>
+                }
+                
         </div>
 </div>
