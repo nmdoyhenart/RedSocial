@@ -12,6 +12,10 @@ export class AuthService {
   private usuarioSubject = new BehaviorSubject<any>(this.obtenerUsuarioDeStorage());
   public usuarioActual$ = this.usuarioSubject.asObservable();
 
+  // Variables para el temporizador
+  private timeoutId: any;
+  public mostrarModalExpiracion$ = new BehaviorSubject<boolean>(false);
+
   constructor(private http: HttpClient) {}
 
   // Busca en la memoria al iniciar
@@ -40,29 +44,85 @@ export class AuthService {
 
     formData.append('imagen', imagen);
 
-    return this.http.post(`${this.apiUrl}/registro`, formData);
+    // Agregamos el tap para interceptar el token de bienvenida
+    return this.http.post(`${this.apiUrl}/registro`, formData).pipe(
+      tap((respuesta: any) => {
+        if (respuesta.token) this.guardarToken(respuesta.token);
+        if (respuesta.usuario) {
+          localStorage.setItem('usuarioActual', JSON.stringify(respuesta.usuario));
+          this.usuarioSubject.next(respuesta.usuario);
+        }
+        this.iniciarTemporizadorSesion();
+      })
+    );
   }
 
   loginUsuario(credenciales: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credenciales).pipe(
       tap((respuesta: any) => {
-        // Guardamos con la clave 'usuarioActual'
-        localStorage.setItem('usuarioActual', JSON.stringify(respuesta));
-
-        // Avisamos que alguien se logeó
-        this.usuarioSubject.next(respuesta);
+        // Separamos el guardado del token y de los datos del usuario
+        if (respuesta.token) this.guardarToken(respuesta.token);
+        if (respuesta.usuario) {
+          localStorage.setItem('usuarioActual', JSON.stringify(respuesta.usuario));
+          this.usuarioSubject.next(respuesta.usuario);
+        }
+        this.iniciarTemporizadorSesion();
       })
     );
   }
 
+  iniciarTemporizadorSesion() {
+    this.detenerTemporizadorSesion(); // Limpiamos relojes viejos (si los hay)
+    
+    // 10 minutos en milisegundos: 10 * 60 * 1000 = 600000
+    this.timeoutId = setTimeout(() => {
+      this.mostrarModalExpiracion$.next(true); // Mostramos el modal
+    }, 600000); 
+  }
+
+  detenerTemporizadorSesion() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+    this.mostrarModalExpiracion$.next(false);
+  }
+
   // --- MANEJO DE SESIÓN ---
-  // Método sincrónico limpio para los componentes que necesitan el dato actualmente
   getUsuarioActual() {
     return this.usuarioSubject.getValue();
   }
 
   cerrarSesion() {
     localStorage.removeItem('usuarioActual');
+    this.eliminarToken(); // Borramos el token JWT
     this.usuarioSubject.next(null);
+  }
+
+  // Helpers para token JWT
+  guardarToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  obtenerToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  eliminarToken() {
+    localStorage.removeItem('token');
+  }
+
+  autorizarToken(token: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/autorizar`, { token });
+  }
+
+  refrescarToken(token: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/refrescar`, { token }).pipe(
+      tap((res: any) => {
+        if (res.token) {
+          this.guardarToken(res.token);
+          this.iniciarTemporizadorSesion(); // Reiniciamos el contador
+        }
+      })
+    );
   }
 }

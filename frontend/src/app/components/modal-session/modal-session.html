@@ -1,0 +1,12 @@
+<div class="modal-overlay" *ngIf="mostrar">
+    <div class="modal-box arcade-card">
+        <h2 class="neon-text">¡Atención, {{ nombreUsuario }}!</h2>
+        <p>Tu sesión va a caducar en 5 minutos por inactividad.</p>
+        <p>¿Querés extender el tiempo en la aplicación?</p>
+        
+        <div class="botones">
+        <button class="btn-cancelar" (click)="cerrar()">Cerrar Sesión</button>
+        <button class="btn-neon" (click)="extender()">Extender Sesión</button>
+        </div>
+    </div>
+</div>

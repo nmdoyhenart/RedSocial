@@ -1,0 +1,124 @@
+<div class="fogon-modal-overlay">
+  <div class="modal-large elegant-modal">
+    
+    <button class="btn-cerrar" (click)="cerrar()" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="modal-grid">
+      
+      <div class="columna-post">
+        
+        @if (post) {
+          <div class="post-header-large">
+            @if (post.user?.imagenPerfil) {
+              <img [src]="post.user.imagenPerfil" class="avatar-large" alt="Avatar">
+            }
+            <div class="user-text">
+              <h2 class="neon-text">{{ post.user?.nombreUsuario || 'Usuario Desconocido' }}</h2>
+              <span class="post-date">{{ post.createdAt | date:'medium' }}</span>
+            </div>
+          </div>
+
+          <h3 class="post-title-large">{{ post.title }}</h3>
+          <p class="post-desc-large">{{ post.description }}</p>
+          
+          @if (post.imageUrl) {
+            <div class="image-wrapper-large">
+              <img [src]="post.imageUrl" alt="Imagen adjunta">
+            </div>
+          }
+        } @else {
+          <h2 style="color: red;">¡ERROR! El post llegó vacío.</h2>
+          <p style="color: white;">Datos recibidos:</p>
+          <pre style="color: yellow;">{{ post | json }}</pre>
+        }
+
+      </div>
+
+      <div class="columna-comentarios">
+        <h3 class="neon-text">Fogón 🌋</h3>
+        <hr class="neon-divider">
+
+        <div class="caja-escribir">
+          <textarea [(ngModel)]="nuevoComentario" placeholder="¿Que estas pensando?" class="input-neon" rows="2"></textarea>
+          <button class="btn-neon" (click)="enviarComentario()">Enviar</button>
+        </div>
+
+        <div class="comentarios-lista">
+          
+          @for (com of comentariosVisibles; track com._id) {
+            <div class="comentario-item">
+              <div class="com-header">
+                <span class="com-nombre">{{ com.autor?.nombreUsuario }}</span>
+                @if (com.modificado) { <span class="com-editado">(Editado)</span> }
+                @if (com.autor?._id === usuarioActualId && comentarioEnEdicionId !== com._id) {
+                  <button class="btn-icon" (click)="iniciarEdicion(com)">✏️</button>
+                }
+              </div>
+
+              @if (comentarioEnEdicionId !== com._id) {
+                <div class="com-mensaje">{{ com.mensaje }}</div>
+              } @else {
+                <div class="com-edicion">
+                  <textarea [(ngModel)]="textoEdicion" class="input-neon" rows="2"></textarea>
+                  <div class="edicion-acciones">
+                    <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+                    <button class="btn-neon-small" (click)="guardarEdicion(com._id)">Guardar</button>
+                  </div>
+                </div>
+              }
+            </div>
+          } @empty {
+            <div class="sin-comentarios">
+              <p>Aún no hay comentarios en esta publicación.</p>
+              <p>¡Rompé el hielo y sé el primero en comentar!</p>
+            </div>
+          }
+        </div>
+        <div class="paginacion-acciones" style="display: flex; gap: 15px; justify-content: center; margin-top: 20px; flex-shrink: 0; width: 100%;">
+          
+          @if ((limiteVisible < comentarios.length || hayMasComentarios) && comentarios.length > 0) {
+            <button class="btn-neon" style="flex: 1; text-align: center;" (click)="leerMas()">
+              Cargar más
+            </button>
+          }
+
+          @if (limiteVisible > 5) {
+            <button class="btn-cancelar" style="flex: 1; text-align: center;" (click)="verMenos()">
+              Ver menos
+            </button>
+          }
+          
+        </div>
+
+      </div>
+
+      @if (mostrarModalNoAuth) {
+      <div class="fogon-modal-overlay" style="z-index: 10000;">
+        
+        <div class="fogon-modal-card" style="position: relative;">
+          
+          <button 
+            (click)="mostrarModalNoAuth = false" 
+            style="position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: #ff4d4d; font-size: 1.2rem; cursor: pointer; z-index: 10010;">
+            ✖
+          </button>
+
+          <h2 class="modal-title">¿Estas ahi? 🤔</h2>
+          
+          <p class="modal-text">Para participar en esta discusión debes ser parte de la comunidad.</p>
+          
+          <div class="modal-actions">
+            <button class="btn-elegante-neon" (click)="redirigirAuth('/login')">Login</button>
+            <button class="btn-elegante-neon" (click)="redirigirAuth('/registro')">Registro</button>
+          </div>
+        </div>
+      </div>
+    }
+    </div>
+  </div>
+</div>

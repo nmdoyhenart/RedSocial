@@ -141,11 +141,10 @@ export class RegistroComponent {
     // Encendemos el spinner
     this.cargando = true;
 
-    this.authService.registrarUsuario(this.registroForm.value, this.archivoSeleccionado)
-      .subscribe({
+    this.authService.registrarUsuario(this.registroForm.value, this.archivoSeleccionado).subscribe({
         next: () => {
           this.cargando = false; // Apagamos el spinner
-          
+
           // Vaciamos todos los campos
           this.registroForm.reset();
           
@@ -156,22 +155,22 @@ export class RegistroComponent {
           this.mostrarContrasenia = false;
           this.mostrarRepetir = false;
 
-          // Mostramos el modal de éxito (pasándole "true" para que sepa q tiene que redirigir)
           this.abrirModal('¡Usuario registrado con éxito! Ya podés iniciar sesión.', true);
         },
+        
         error: (err) => {
-          this.cargando = false; // Apagamos el spinner por fallo
+          this.cargando = false; // Apagamos el spinner
           
-          // Atajamos el Error 400 (error en RegisterDto)
+          // Atajamos el Error 400
           if (err.status === 400 && err.error.message) {
             const mensajesErrores = Array.isArray(err.error.message) 
               ? err.error.message.join(' | ') 
               : err.error.message;
             this.abrirModal('Datos inválidos: ' + mensajesErrores);
           } 
-          // Atajamos el Error 409 (Duplicados en Mongo enviados por nuestro Backend)
+          // Atajamos el Error 409 (duplicados)
           else if (err.status === 409) {
-            // Ya no le concatenamos la palabra "Error: " porque el backend ya manda el texto limpio
+            
             this.abrirModal(err.error.message);
           } 
           else {

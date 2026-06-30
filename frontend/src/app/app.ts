@@ -1,10 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ModalSesionComponent } from './components/modal-session/modal-session.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, ModalSesionComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

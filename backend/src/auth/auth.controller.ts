@@ -1,5 +1,5 @@
 /// <reference types="multer" />
-import { Controller, Post, Body, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Post, Body, UseInterceptors, UploadedFile, UnauthorizedException, HttpStatus, HttpCode } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
@@ -28,5 +28,23 @@ export class AuthController {
     @Post('login')
     async login(@Body() loginDto: LoginDto) {
         return this.authService.login(loginDto);
+    }
+
+    @Post('autorizar')
+    @HttpCode(HttpStatus.OK)
+    async autorizar(@Body('token') token: string) {
+        if (!token) {
+        throw new UnauthorizedException('No se proporcionó ningún token');
+        }
+        return this.authService.autorizarToken(token);
+    }
+
+    @Post('refrescar')
+    @HttpCode(HttpStatus.OK)
+    async refrescar(@Body('token') token: string) {
+        if (!token) {
+        throw new UnauthorizedException('No se proporcionó ningún token');
+        }
+        return this.authService.refrescarToken(token);
     }
 }

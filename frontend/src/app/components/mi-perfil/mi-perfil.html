@@ -6,13 +6,24 @@
                         
                         <div class="profile-header">
                         <div class="avatar-wrapper">
-                                @if (usuario.imagenPerfil) {
-                                <img [src]="usuario.imagenPerfil" alt="Mi Foto" class="profile-avatar">
-                                } @else {
-                                <div class="default-avatar-large">
-                                        {{ usuario.nombreUsuario ? usuario.nombreUsuario.charAt(0).toUpperCase() : '?' }}
+                                
+                                <div class="avatar-container" (click)="fileInput.click()">
+                                    
+                                    @if (imagenVistaPrevia || usuario.imagenPerfil) {
+                                        <img [src]="imagenVistaPrevia || usuario.imagenPerfil" alt="Mi Foto" class="profile-avatar">
+                                    } @else {
+                                    <div class="default-avatar-large">
+                                            {{ usuario.nombreUsuario ? usuario.nombreUsuario.charAt(0).toUpperCase() : '?' }}
+                                        </div>
+                                    }
+
+                                    <div class="avatar-overlay">
+                                        <span class="icono-camara">📷</span>
+                                    </div>
+
+                                    <input type="file" #fileInput style="display: none;" accept="image/*" (change)="onFileSelected($event)">
                                 </div>
-                                }
+
                         </div>
                         
                         <h2 class="elegant-title">{{ usuario.nombre }} {{ usuario.apellido }}</h2>

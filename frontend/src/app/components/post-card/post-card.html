@@ -1,6 +1,6 @@
 <div class="elegant-post-card">
     <div class="post-header">
-        <div class="user-info">
+        <div class="user-info area-interactiva" (click)="abrirDetalle()">
       
         @if (post.user?.imagenPerfil) {
             <img [src]="post.user.imagenPerfil" alt="Avatar" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid #00B4D8;">
@@ -21,7 +21,7 @@
         }
     </div>
 
-    <div class="post-body">
+    <div class="post-body area-interactiva" (click)="abrirDetalle()">
         <h4 class="post-title">{{ post.title }}</h4>
         <p class="post-desc">{{ post.description }}</p>
         
@@ -36,7 +36,18 @@
         <button (click)="toggleLike()" [ngClass]="{'liked': leDiLike}" class="btn-like">
         {{ leDiLike ? '🔥 Fogoneado' : '🤍 Fogonear' }} ({{ post.likesCount || 0 }})
         </button>
+
+        <button (click)="abrirDetalle()" class="btn-comment" style="margin-left: 10px; background: transparent; color: #00B4D8; border: 1px solid #00B4D8; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+            💬 Comentarios
+        </button>
     </div>
+
+    @if (mostrarDetalle) {
+        <app-post-detalle 
+            [post]="post" 
+            (cerrarModal)="cerrarDetalle()">
+        </app-post-detalle>
+    }
 
     @if (mostrarModalConfirm) {
         <div class="fogon-modal-overlay">

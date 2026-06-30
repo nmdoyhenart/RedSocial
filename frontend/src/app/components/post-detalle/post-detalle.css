@@ -1,0 +1,199 @@
+/* =========================================
+   OVERLAY GLOBAL (Fondo desenfocado)
+   ========================================= */
+.fogon-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(10, 10, 12, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* =========================================
+   MODAL GRANDE (Post Detalle)
+   ========================================= */
+.elegant-modal {
+    background-color: #0b0c10;
+    border: 1px solid rgba(0, 180, 216, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 180, 216, 0.05);
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+.modal-large {
+    width: 90vw;
+    max-width: 1200px;
+    height: 85vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- CRUZ SVG MINIMALISTA --- */
+.btn-cerrar {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    z-index: 9999;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.btn-cerrar svg {
+    width: 22px;
+    height: 22px;
+}
+
+.btn-cerrar:hover {
+    background-color: rgba(255, 77, 77, 0.1);
+    color: #ff4d4d;
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* =========================================
+   GRILLA Y COLUMNAS
+   ========================================= */
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* --- COLUMNA IZQUIERDA (El Post) --- */
+.columna-post {
+    padding: 30px;
+    border-right: 1px solid rgba(0, 180, 216, 0.3);
+    overflow-y: auto;
+    color: #74ACDF;
+}
+
+.post-header-large { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.avatar-large { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #00B4D8; object-fit: cover; }
+.post-title-large { font-size: 2rem; color: #fff; margin-bottom: 10px; }
+.post-desc-large { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; }
+.image-wrapper-large img { max-width: 100%; border-radius: 8px; border: 1px solid #74ACDF; }
+
+/* --- COLUMNA DERECHA (Comentarios) --- */
+.columna-comentarios {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.comentarios-lista {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* SCROLLBAR ELEGANTE PARA LA LISTA */
+.comentarios-lista::-webkit-scrollbar { width: 6px; }
+.comentarios-lista::-webkit-scrollbar-track { background: transparent; }
+.comentarios-lista::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 180, 216, 0.15);
+    border-radius: 10px;
+}
+.comentarios-lista::-webkit-scrollbar-thumb:hover { background-color: rgba(0, 180, 216, 0.4); }
+
+.sin-comentarios {
+    text-align: center; color: #74ACDF; margin-top: 40px;
+    font-style: italic; border: 1px dashed #00B4D8; padding: 20px; border-radius: 8px;
+}
+
+/* =========================================
+   ELEMENTOS INTERNOS Y NEÓN
+   ========================================= */
+.neon-text { color: #00B4D8; text-shadow: 0 0 8px rgba(0, 180, 216, 0.5); margin: 0; }
+.neon-divider { border: 0; height: 1px; background: #00B4D8; margin: 15px 0; }
+.caja-escribir { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.input-neon { background: transparent; border: 1px solid #74ACDF; border-radius: 4px; color: #fff; padding: 10px; resize: none; }
+
+.btn-neon, .btn-neon-small { 
+    background: transparent; color: #00B4D8; border: 1px solid #00B4D8; 
+    padding: 10px; cursor: pointer; font-weight: bold; align-self: flex-end; 
+}
+.btn-neon:hover { background: #00B4D8; color: #0a0a0c; }
+
+.comentario-item { background: rgba(0, 180, 216, 0.05); border-left: 3px solid #00B4D8; padding: 15px; margin-bottom: 15px; }
+.com-nombre { color: #00B4D8; font-weight: bold; }
+.com-editado { font-size: 0.8rem; color: #555; }
+.btn-icon { background: none; border: none; cursor: pointer; filter: grayscale(100%); }
+.btn-cancelar { background: transparent; color: #ff4d4d; border: 1px solid #ff4d4d; padding: 5px; cursor: pointer; }
+.cargar-mas { width: 100%; text-align: center; margin-top: 15px; }
+
+/* =========================================
+   MODAL PEQUEÑO (Validación / Autenticación)
+   ========================================= */
+.fogon-modal-card {
+    background: #121215;
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(116, 172, 223, 0.3);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(116, 172, 223, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-title { color: #74ACDF; font-size: 1.5rem; font-weight: 400; margin: 0; letter-spacing: 1px; }
+.modal-text { color: #ffffff; font-size: 1rem; line-height: 1.5; margin: 0; opacity: 0.9; }
+.modal-btn { margin-top: 10px; padding: 10px 20px; width: 50%; align-self: center; }
+.modal-actions { display: flex; gap: 15px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+
+.btn-cerrar-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #ff4d4d;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 10100;
+}
+.btn-cerrar-modal:hover { color: #ff1a1a; transform: scale(1.1); }
+
+/* --- BOTONES ELEGANTES DEL MODAL --- */
+.btn-elegante-neon {
+    background: rgba(0, 180, 216, 0.05);
+    color: #00B4D8;
+    border: 2px solid #00B4D8;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(0, 180, 216, 0.1);
+}
+
+.btn-elegante-neon:hover {
+    background: #00B4D8;
+    color: #121215;
+    box-shadow: 0 0 20px rgba(0, 180, 216, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}

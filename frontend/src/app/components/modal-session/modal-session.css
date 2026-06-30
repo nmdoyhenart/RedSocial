@@ -1,0 +1,56 @@
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85); /* Fondo 100% oscuro y transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background-color: #0a0a0c;
+  border: 2px solid #00B4D8;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+  color: #74ACDF;
+  max-width: 400px;
+}
+
+.neon-text {
+  color: #00B4D8;
+  text-shadow: 0 0 10px rgba(0, 180, 216, 0.6);
+  margin-bottom: 15px;
+}
+
+.botones {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 25px;
+}
+
+.btn-neon {
+  background-color: transparent;
+  color: #00B4D8;
+  border: 1px solid #00B4D8;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+  background-color: #00B4D8;
+  color: #0a0a0c;
+}
+
+.btn-cancelar {
+  background-color: transparent;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}

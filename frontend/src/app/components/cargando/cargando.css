@@ -1,0 +1,38 @@
+.boot-screen {
+    width: 100vw;
+    height: 100vh;
+    background-color: #0a0a0c; /* Tu fondo oscuro */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(0, 180, 216, 0.2); /* Borde opaco */
+    border-top-color: #00B4D8; /* Color neón girando */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.4);
+}
+
+.boot-text {
+    color: #74ACDF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Animaciones */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
