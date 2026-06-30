@@ -123,4 +123,22 @@ export class PostsService {
 
     return { posts, total };
     }
+
+    async obtenerMetricasPosts() {
+        const metricas = await this.postModel.aggregate([
+            {
+                // Agrupamos las publicaciones por su fecha de creación (año-mes-día)
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+                    cantidad: { $sum: 1 } // Sumamos 1 por cada post en ese día
+                }
+            },
+            { 
+                // Ordenamos cronológicamente
+                $sort: { _id: 1 } 
+            }
+        ]).exec();
+
+        return metricas;
+    }
 }
