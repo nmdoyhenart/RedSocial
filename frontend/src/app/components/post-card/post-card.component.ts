@@ -1,11 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PostsService } from '../../services/publicaciones.service';
+import { PostDetalleComponent } from '../post-detalle/post-detalle.component';
 
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PostDetalleComponent],
   templateUrl: './post-card.html',
   styleUrls: ['./post-card.css']
 })
@@ -20,7 +22,10 @@ export class PostCardComponent {
   // Manejo modal
   mostrarModalConfirm: boolean = false;
 
-  constructor(private postsService: PostsService) {}
+  // Control comentarios
+  mostrarDetalle = false;
+
+  constructor(private postsService: PostsService, private router: Router) {}
 
   get leDiLike(): boolean {
     if (!this.usuarioActual || !this.post.likes) return false;
@@ -30,6 +35,14 @@ export class PostCardComponent {
 
   abrirConfirmacion() {
     this.mostrarModalConfirm = true;
+  }
+
+  abrirDetalle() {
+    this.mostrarDetalle = true;
+  }
+
+  cerrarDetalle() {
+    this.mostrarDetalle = false;
   }
 
   toggleLike() {

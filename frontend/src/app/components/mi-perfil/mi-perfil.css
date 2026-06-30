@@ -31,14 +31,51 @@
   margin-bottom: 20px;
 }
 
-/* El avatar ahora tiene un brillo sutil celeste */
+/* --- NUEVAS CLASES PARA LA EDICIÓN --- */
+.avatar-container {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden; /* Mantiene el overlay dentro del círculo */
+  /* Movemos tu borde y sombra celeste acá al contenedor principal */
+  border: 3px solid #2b8bf8; 
+  box-shadow: 0 4px 20px rgba(43, 139, 248, 0.25);
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 12, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 50%;
+}
+
+.avatar-container:hover .avatar-overlay {
+  opacity: 1;
+}
+
+.icono-camara {
+  font-size: 2.5rem;
+  color: #2b8bf8;
+  text-shadow: 0 0 10px rgba(43, 139, 248, 0.8);
+}
+
+/* Ajustes a tus clases anteriores para que encajen en el contenedor */
 .profile-avatar {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #2b8bf8; 
-  box-shadow: 0 4px 20px rgba(43, 139, 248, 0.25); 
+  display: block;
+  /* El borde se eliminó de aquí porque ahora lo tiene el avatar-container */
 }
 
 .default-avatar-large {
@@ -52,7 +89,7 @@
   justify-content: center;
   font-size: 3.5rem;
   font-weight: 600;
-  box-shadow: 0 4px 20px rgba(43, 139, 248, 0.25);
+  /* La sombra se eliminó de aquí porque ahora la tiene el avatar-container */
 }
 
 .elegant-title {
@@ -61,20 +98,6 @@
   font-weight: 600;
   margin: 0 0 5px 0;
   letter-spacing: 0.5px;
-}
-
-.profile-role {
-  color: #888;
-  font-size: 0.95rem;
-  letter-spacing: 0.5px;
-}
-
-.elegant-divider {
-  height: 2px;
-  background: #2b8bf8;
-  width: 50px;
-  margin: 25px auto 0;
-  border-radius: 2px;
 }
 
 /* =========================================

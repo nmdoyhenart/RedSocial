@@ -16,6 +16,10 @@ export class MiPerfilComponent implements OnInit {
   usuario: any = null;
   misPosts: any[] = [];
 
+  // Variables para la edición de foto
+  archivoSeleccionado: File | null = null;
+  imagenVistaPrevia: string | ArrayBuffer | null = null;
+
   constructor(
     private authService: AuthService,
     private postsService: PostsService,
@@ -35,7 +39,6 @@ export class MiPerfilComponent implements OnInit {
   }
 
   cargarMisUltimosPosts() {
-    // Pedimos exactamente: 3 posts, desde el inicio (0), ordenados por fecha, de ESTE usuario
     this.postsService.getPosts(3, 0, 'fecha', this.usuario._id).subscribe({
       next: (res: any) => {
         const arrayPosts = res.posts ? res.posts : res;
@@ -51,8 +54,25 @@ export class MiPerfilComponent implements OnInit {
     this.router.navigate(['/login']);
   }
   
-  // Por si eliminás un post directamente desde tu perfil
   removerPostDeLista(postId: string) {
     this.misPosts = this.misPosts.filter(p => p._id !== postId);
+  }
+
+  // MÉTODO PARA MANEJAR LA NUEVA FOTO DE PERFIL
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    
+    if (file) {
+      this.archivoSeleccionado = file;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagenVistaPrevia = e.target?.result as string;
+        // Forzamos la actualización de la vista para que la imagen aparezca de inmediato
+        this.cdr.detectChanges();
+      };
+      
+      reader.readAsDataURL(file);
+    }
   }
 }

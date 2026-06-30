@@ -74,7 +74,7 @@ export class LoginComponent {
     this.authService.loginUsuario(this.loginForm.value).subscribe({
       next: () => {
         this.cargando = false;
-
+        
         this.router.navigate(['/publicaciones']);
       },
 

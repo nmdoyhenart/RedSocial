@@ -11,6 +11,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ArchivosModule,
     // Usamos la función para poder leer variables de entorno antes de configurar el token
     JwtModule.registerAsync({
+      global: true,
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'), // Lee el .env
