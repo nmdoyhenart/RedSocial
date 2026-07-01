@@ -1,0 +1,177 @@
+<div class="fogon-dark-wrapper layout-column">
+    <div class="arcade-card admin-container">
+        
+        <div class="cyberpunk-header">
+            <h2 class="terminal-title">
+                SISTEMA DE ADM DE USUARIOS - FOGONEADOS
+            </h2>
+            <div class="header-actions">
+                <button
+                    class="btn-neon-blue"
+                    routerLink="/dashboard-admin">
+                    DASHBOARD
+                </button>
+                <button
+                    class="btn-neon-blue"
+                    (click)="abrirModal()">
+                    + NUEVO REGISTRO
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+        <table class="cyber-table">
+            <thead>
+            <tr>
+                <th>ARROBA</th>
+                <th>TIPO PERF</th>
+                <th>ESTADO</th>
+                <th>SISTEMA</th>
+            </tr>
+            </thead>
+            <tbody>
+            @for (user of usuarios(); track $index) {
+                <tr appResaltarHover>
+                <td class="user-cell">
+                    <span class="user-name">{{ user.nombreUsuario | arroba }}</span>
+                </td>
+                
+                <td>
+                    <span class="badge-role" [ngClass]="user.perfil === 'administrador' ? 'role-admin' : 'role-user'">
+                    {{ user.perfil | uppercase }}
+                    </span>
+                </td>
+                
+                <td>
+                    <span class="badge-status" [ngClass]="user.activo ? 'status-active' : 'status-suspended'">
+                    {{ user.activo ? 'HABILITADO' : 'SUSPENDIDO' }}
+                    </span>
+                </td>
+                
+                <td>
+                    @if (user.activo) {
+                    <button class="btn-neon-red" (click)="alternarEstado(user)">DESHABILITAR</button>
+                    } @else {
+                    <button class="btn-neon-green" (click)="alternarEstado(user)">HABILITAR</button>
+                    }
+                </td>
+                </tr>
+            } @empty {
+                <tr>
+                <td colspan="4" class="empty-state">NO SE ENCONTRARON USUARIOS.</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        </div>
+
+        @if (mostrarModal()) {
+            <div class="cyber-modal-overlay">
+                <div class="arcade-card cyber-modal">
+                
+                <div class="modal-header">
+                    <h3 class="terminal-title">CREAR USUARIO</h3>
+                    <button class="btn-close-neon" (click)="cerrarModal()" type="button">X</button>
+                </div>
+
+                <form [formGroup]="registroForm" (ngSubmit)="crearUsuarioAdmin()" class="modal-body">
+                    
+                    <div class="form-row">
+                    <div class="cyber-input-group">
+                        <label>@OMBRE</label>
+                        <input type="text" formControlName="nombre" class="cyber-input" placeholder="Nombre" appAutoFocus>
+                        @if (registroForm.get('nombre')?.touched && registroForm.get('nombre')?.invalid) {
+                        <span class="error-text-small">Requerido</span>
+                        }
+                    </div>
+
+                    <div class="cyber-input-group">
+                        <label>APELLIDO</label>
+                        <input type="text" formControlName="apellido" class="cyber-input" placeholder="Apellido">
+                        @if (registroForm.get('apellido')?.touched && registroForm.get('apellido')?.invalid) {
+                        <span class="error-text-small">Requerido</span>
+                        }
+                    </div>
+                    </div>
+
+                    <div class="cyber-input-group">
+                    <label>USUARIO</label>
+                    <input type="text" formControlName="nombreUsuario" class="cyber-input" placeholder="@example">
+                    @if (registroForm.get('nombreUsuario')?.touched && registroForm.get('nombreUsuario')?.invalid) {
+                        <span class="error-text-small">Requerido</span>
+                    }
+                    </div>
+
+                    <div class="cyber-input-group">
+                    <label>CORREO ELECTRÓNICO</label>
+                    <input type="email" formControlName="correo" class="cyber-input" placeholder="usuario@gmail.com">
+                    @if (registroForm.get('correo')?.touched && registroForm.get('correo')?.hasError('required')) {
+                        <span class="error-text-small">Requerido</span>
+                    }
+                    @if (registroForm.get('correo')?.touched && registroForm.get('correo')?.hasError('email')) {
+                        <span class="error-text-small">Formato inválido</span>
+                    }
+                    </div>
+
+                    <div class="cyber-input-group">
+                    <label>CONTRASEÑA</label>
+                    <input type="password" formControlName="contrasenia" class="cyber-input" placeholder="****">
+                    @if (registroForm.get('contrasenia')?.touched && registroForm.get('contrasenia')?.invalid) {
+                        <span class="error-text-small">Mín. 8 caracteres, 1 mayúscula y 1 número.</span>
+                    }
+                    </div>
+
+                    <div class="cyber-input-group">
+                    <label>TIPO PERFIL</label>
+                    <select formControlName="perfil" class="cyber-input">
+                        <option value="usuario">USUARIO ESTÁNDAR</option>
+                        <option value="administrador">ADMINISTRADOR</option>
+                    </select>
+                    </div>
+
+                    <button type="submit" class="btn-neon-green btn-full-width mt-3" [disabled]="cargando()">
+                    {{ cargando() ? 'REGISTRANDO...' : 'REGISTRAR' }}
+                    </button>
+                </form>
+
+                </div>
+            </div>
+            }
+
+            @if (notificacion().mostrar) {
+                <div class="cyber-modal-overlay">
+
+                    <div class="cyber-modal notification-modal">
+
+                        <div class="modal-header">
+                            <h3
+                                class="terminal-title"
+                                [style.color]="notificacion().tipo === 'exito' ? '#4ade80' : '#ff4d4d'">
+                                {{ notificacion().tipo === 'exito'
+                                    ? 'OPERACIÓN EXITOSA'
+                                    : 'ERROR DEL SISTEMA' }}
+                            </h3>
+                        </div>
+
+                        <div class="modal-body">
+                            <p class="notification-text">
+                                {{ notificacion().mensaje }}
+                            </p>
+                            <button
+                                class="btn-neon-green btn-full-width"
+                                *ngIf="notificacion().tipo === 'exito'"
+                                (click)="cerrarNotificacion()">
+                                CONTINUAR
+                            </button>
+                            <button
+                                class="btn-neon-red btn-full-width"
+                                *ngIf="notificacion().tipo === 'error'"
+                                (click)="cerrarNotificacion()">
+                                CERRAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                }
+    </div>
+</div>

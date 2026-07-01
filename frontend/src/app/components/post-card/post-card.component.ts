@@ -3,11 +3,15 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PostsService } from '../../services/publicaciones.service';
 import { PostDetalleComponent } from '../post-detalle/post-detalle.component';
+import { ArrobaPipe } from '../../pipes/arroba-pipe';
+import { TiempoRelativoPipe } from '../../pipes/tiempo-relativo-pipe';
+import { TruncarTextoPipe } from '../../pipes/truncar-texto-pipe';
+
 
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [CommonModule, PostDetalleComponent],
+  imports: [CommonModule, PostDetalleComponent, ArrobaPipe, TiempoRelativoPipe, TruncarTextoPipe],
   templateUrl: './post-card.html',
   styleUrls: ['./post-card.css']
 })

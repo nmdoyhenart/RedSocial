@@ -1,0 +1,50 @@
+<div class="dashboard-container">
+    <div class="filtro-container">
+        <label>
+        Lapso
+        <select [(ngModel)]="lapso" name="lapso" (ngModelChange)="onCambioLapso()">
+            <option value="7d">Última semana</option>
+            <option value="30d">Últimos 30 días</option>
+            <option value="mes">Este mes</option>
+            <option value="anio">Este año</option>
+            <option value="todo">Todo</option>
+            <option value="personalizado">Personalizado</option>
+        </select>
+        </label>
+
+        <div class="fechas-personalizadas" *ngIf="lapso === 'personalizado'">
+        <label>
+            Desde
+            <input type="date" [(ngModel)]="desdeCustom" name="desdeCustom" (change)="onCambioLapso()">
+        </label>
+        <label>
+            Hasta
+            <input type="date" [(ngModel)]="hastaCustom" name="hastaCustom" (change)="onCambioLapso()">
+        </label>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card">
+        <h2 class="chart-titulo">Publicaciones por usuario</h2>
+        <div class="chart-wrapper">
+            <canvas id="graficoPosts"></canvas>
+        </div>
+        </div>
+
+        <div class="chart-card">
+        <h2 class="chart-titulo">Comentarios realizados</h2>
+        <div class="chart-wrapper chart-wrapper--torta">
+            <canvas id="graficoComentarios"></canvas>
+        </div>
+        </div>
+
+        <div class="chart-card chart-card--full">
+        <h2 class="chart-titulo">Comentarios por publicación</h2>
+        <div class="chart-wrapper">
+            <canvas id="graficoComentariosPorPublicacion" [style.display]="sinDatosComentariosPorPublicacion ? 'none' : 'block'"></canvas>
+            <div class="sin-datos" *ngIf="sinDatosComentariosPorPublicacion">
+            No hay suficientes datos para mostrar la evolución en este lapso.
+            </div>
+        </div>
+</div>

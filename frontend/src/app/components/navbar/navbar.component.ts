@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router'; // 1. Importamos el Router
-import { AuthService } from '../../services/auth.service'; // Ajustá la ruta según tu proyecto
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { SoloAdminDirective } from '../../directives/solo-admin.directive';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, SoloAdminDirective],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css']
 })

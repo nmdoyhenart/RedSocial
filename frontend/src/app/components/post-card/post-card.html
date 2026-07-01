@@ -11,19 +11,27 @@
         }
 
         <div class="user-text">
-            <h3 class="post-name">{{ post.user?.nombreUsuario || 'Usuario Desconocido' }}</h3>
-            <span class="post-date">{{ post.createdAt | date:'short' }}</span>
+            <h3 class="neon-text">{{ post.user?.nombreUsuario ? (post.user.nombreUsuario | arroba) : 'Usuario Desconocido' }}</h3>
+            <span class="post-date">{{ post.createdAt | tiempoRelativo }}</span>
         </div>
         </div>
 
-        @if (usuarioActual && usuarioActual._id === post.user?._id) {
-        <button (click)="abrirConfirmacion()" class="btn-delete-post">Borrar</button>
+        @if (
+            usuarioActual &&
+            (
+                usuarioActual._id === post.user?._id ||
+                usuarioActual.perfil === 'administrador'
+            )
+        ) {
+            <button (click)="abrirConfirmacion()" class="btn-delete-post">
+                {{ usuarioActual._id === post.user?._id ? 'Borrar' : 'Eliminar publicación' }}
+            </button>
         }
     </div>
 
     <div class="post-body area-interactiva" (click)="abrirDetalle()">
         <h4 class="post-title">{{ post.title }}</h4>
-        <p class="post-desc">{{ post.description }}</p>
+        <p class="post-desc">{{ post.description | truncarTexto:150 }}</p>
         
         @if (post.imageUrl) {
         <div class="image-wrapper">

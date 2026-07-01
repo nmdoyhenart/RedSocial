@@ -1,0 +1,449 @@
+/* =========================================
+   CONTENEDOR ADMIN (ESTILO ELEGANT)
+========================================= */
+
+.admin-container {
+    background-color: #0b0c10;
+    border: 1px solid rgba(0, 180, 216, 0.15);
+    border-radius: 16px;
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.8),
+        0 0 20px rgba(0,180,216,.05);
+    font-family: 'Inter','Segoe UI',system-ui,sans-serif;
+
+    width: 100%;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.cyberpunk-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    padding-bottom:20px;
+    border-bottom:1px solid rgba(0,180,216,.3);
+}
+
+.terminal-title{
+    color:#00B4D8;
+    text-shadow:0 0 8px rgba(0,180,216,.5);
+    font-size:2rem;
+    font-weight:600;
+    letter-spacing:.5px;
+    margin:0;
+}
+
+/* =========================================
+   TABLA
+========================================= */
+
+.table-responsive{
+    overflow-x:auto;
+}
+
+.cyber-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.cyber-table th{
+    color:#74ACDF;
+    font-weight:600;
+    padding:16px;
+    border-bottom:1px solid rgba(0,180,216,.25);
+}
+
+.cyber-table td{
+    color:#fff;
+    padding:16px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    transition:background .25s ease;
+}
+
+.cyber-table tbody tr:hover{
+    background:rgba(0,180,216,.05);
+}
+
+.user-name{
+    color:#ffffff;
+    font-weight:600;
+}
+
+.empty-state{
+    color:#74ACDF;
+    text-align:center;
+    font-style:italic;
+    padding:35px !important;
+    border:1px dashed #00B4D8;
+    border-radius:8px;
+}
+
+/* =========================================
+   BADGES
+========================================= */
+
+.badge-role,
+.badge-status{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:.8rem;
+    font-weight:600;
+    letter-spacing:.5px;
+}
+
+.role-admin{
+    background:rgba(147,51,234,.12);
+    color:#d8b4fe;
+    border:1px solid rgba(147,51,234,.4);
+}
+
+.role-user{
+    background:rgba(255,255,255,.04);
+    color:#d1d5db;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.status-active{
+    color:#4ade80;
+}
+
+.status-suspended{
+    color:#ff4d4d;
+}
+
+/* =========================================
+   BOTONES
+========================================= */
+
+button{
+    font-family:'Inter','Segoe UI',system-ui,sans-serif;
+    transition:.3s ease;
+}
+
+/* mismo estilo que btn-elegante-neon */
+
+.btn-neon-blue{
+    background:rgba(0,180,216,.05);
+    color:#00B4D8;
+    border:2px solid #00B4D8;
+    padding:10px 22px;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 0 10px rgba(0,180,216,.1);
+}
+
+.btn-neon-blue:hover{
+    background:#00B4D8;
+    color:#121215;
+    transform:translateY(-2px);
+    box-shadow:
+        0 0 20px rgba(0,180,216,.6),
+        inset 0 0 10px rgba(255,255,255,.2);
+}
+
+.btn-neon-red{
+    background:rgba(255,77,77,.05);
+    color:#ff4d4d;
+    border:2px solid #ff4d4d;
+    padding:8px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.btn-neon-red:hover{
+    background:#ff4d4d;
+    color:#121215;
+    transform:translateY(-2px);
+}
+
+.btn-neon-green{
+    background:rgba(74,222,128,.05);
+    color:#4ade80;
+    border:2px solid #4ade80;
+    padding:8px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.btn-neon-green:hover{
+    background:#4ade80;
+    color:#121215;
+    transform:translateY(-2px);
+}
+
+/* =========================================
+   MODAL
+========================================= */
+
+.cyber-modal-overlay{
+    position:fixed;
+    inset:0;
+    background-color:rgba(10,10,12,.85);
+    backdrop-filter:blur(5px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+
+.cyber-modal{
+    background:#0b0c10;
+    border:1px solid rgba(0,180,216,.15);
+    border-radius:16px;
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.8),
+        0 0 20px rgba(0,180,216,.05);
+
+    width:90%;
+    max-width:450px;
+    overflow:hidden;
+    position:relative;
+    animation:modalFade .25s ease;
+}
+
+/* =========================================
+   HEADER MODAL
+========================================= */
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 25px;
+    border-bottom:1px solid rgba(0,180,216,.2);
+}
+
+.btn-close-neon{
+    background:transparent;
+    border:none;
+    color:rgba(255,255,255,.45);
+    cursor:pointer;
+    border-radius:50%;
+    padding:8px;
+    transition:.3s;
+}
+
+.btn-close-neon:hover{
+    background:rgba(255,77,77,.1);
+    color:#ff4d4d;
+    transform:rotate(90deg) scale(1.1);
+}
+
+.modal-body{
+    padding:25px;
+}
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.cyber-input-group{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.cyber-input-group label{
+    color: #74ACDF;
+    font-size: .9rem;
+    font-weight: 500;
+    letter-spacing: .5px;
+}
+
+.cyber-input,
+.cyber-input-group select{
+    width: 100%;
+    background: #0b0c10;
+    border: 1px solid #74ACDF;
+    border-radius: 6px;
+    color: #ffffff;
+    padding: 12px;
+    font-size: .95rem;
+    transition: all .3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.cyber-input::placeholder{
+    color: rgba(255,255,255,.35);
+}
+
+.cyber-input:focus,
+.cyber-input-group select:focus{
+    outline: none;
+    border-color: #00B4D8;
+    box-shadow: 0 0 12px rgba(0,180,216,.2);
+    background: #0b0c10;
+}
+
+/* Opciones del select */
+
+.cyber-input-group select option{
+    background: #0b0c10;
+    color: #ffffff;
+}
+
+/* Botón */
+
+.btn-full-width{
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.table-responsive::-webkit-scrollbar{
+    height:6px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb{
+    background:rgba(0,180,216,.2);
+    border-radius:10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover{
+    background:rgba(0,180,216,.4);
+}
+
+/* =========================================
+   ANIMACIÓN
+========================================= */
+
+@keyframes modalFade{
+
+    from{
+        opacity:0;
+        transform:translateY(-15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* =========================================
+   ESTILOS DE FORMULARIO Y ERRORES
+========================================= */
+.form-row {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.form-row .cyber-input-group {
+  flex: 1; /* Hace que nombre y apellido ocupen el 50% cada uno */
+}
+
+.error-text-small {
+  color: #ff4d4d;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  margin-top: 6px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 5px rgba(255, 77, 77, 0.4);
+}
+
+/*==============================
+ MODAL NOTIFICACIÓN
+==============================*/
+
+.notification-modal{
+
+    max-width:420px;
+    text-align:center;
+    animation:modalFade .25s ease;
+
+}
+
+.notification-text{
+
+    color:#d6d6d6;
+    font-size:1rem;
+    line-height:1.6;
+    margin-bottom:30px;
+
+}
+
+.notification-modal .terminal-title{
+
+    font-size:1.4rem;
+    text-align:center;
+
+}
+
+/*==============================
+ MODAL NOTIFICACIÓN
+==============================*/
+
+.notification-modal{
+
+    max-width:420px;
+    text-align:center;
+    animation:modalFade .25s ease;
+
+}
+
+.notification-text{
+
+    color:#d6d6d6;
+    font-size:1rem;
+    line-height:1.6;
+    margin-bottom:30px;
+
+}
+
+.notification-modal .terminal-title{
+
+    font-size:1.4rem;
+    text-align:center;
+
+}
+
+.notification-modal{
+
+    animation:popupSuccess .25s ease;
+
+}
+
+@keyframes popupSuccess{
+
+    from{
+
+        opacity:0;
+        transform:scale(.85);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:scale(1);
+
+    }
+
+}
+
+.header-actions{
+    display:flex;
+    gap:12px;
+}

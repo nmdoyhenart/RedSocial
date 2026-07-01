@@ -1,6 +1,5 @@
 import { Injectable, UnauthorizedException, BadRequestException, ConflictException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Document } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
@@ -117,6 +116,10 @@ export class AuthService {
 
         if (!usuario) {
             throw new UnauthorizedException('Credenciales inválidas');
+        }
+
+        if (usuario.activo === false) {
+            throw new UnauthorizedException('USUARIO_DESHABILITADO');
         }
 
         const contraseniaValida = await bcrypt.compare(contrasenia, usuario.contrasenia);

@@ -3,11 +3,20 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Post, PostDocument } from './schemas/post.schema';
 import { CreatePostDto } from './dto/create-post.dto';
+import { User } from '../users/schemas/user.schema';
+import { Comment } from './schemas/comment.schema';
 
 @Injectable()
 export class PostsService {
     constructor(
-        @InjectModel(Post.name) private postModel: Model<PostDocument>,
+        @InjectModel(Post.name)
+        private postModel: Model<PostDocument>,
+
+        @InjectModel(User.name)
+        private userModel: Model<User>,
+
+        @InjectModel(Comment.name)
+        private commentModel: Model<Comment>,
     ) {}
 
     // Alta de publicación
@@ -47,25 +56,41 @@ export class PostsService {
 
     // Baja de publicación
     async delete(postId: string, userId: string) {
-        // Buscar el post
         const post = await this.postModel.findById(postId);
 
         if (!post) {
-        throw new NotFoundException('La publicación no existe');
+            throw new NotFoundException('La publicación no existe');
         }
 
-        // Verificamos que el usuario que intenta borrar sea el creador
-        const creadorId = post.user as string;
+        const usuario = await this.userModel.findById(userId);
 
-        if (creadorId.toString() !== userId) {
-        throw new UnauthorizedException('No tenés permiso para eliminar esta publicación');
+        if (!usuario) {
+            throw new UnauthorizedException('Usuario inválido');
         }
 
-        // Aplicar la baja lógica
+        const esAdministrador = usuario.perfil === 'administrador';
+
+        const esPropietario =
+            post.user.toString() === userId;
+
+        if (!esAdministrador && !esPropietario) {
+            throw new UnauthorizedException(
+                'No tenés permiso para eliminar esta publicación.'
+            );
+        }
+
+        // Elimina todos los comentarios del post
+        await this.commentModel.deleteMany({
+            publicacion: post._id
+        });
+
+        // Baja lógica del post
         post.isActive = false;
         await post.save();
 
-        return { mensaje: 'Publicación eliminada correctamente' };
+        return {
+            mensaje: 'Publicación eliminada correctamente'
+        };
     }
 
     // Dar "Me gusta"
@@ -140,5 +165,77 @@ export class PostsService {
         ]).exec();
 
         return metricas;
+    }
+
+    async obtenerPostsPorUsuario(desde?: string, hasta?: string) {
+        const filtro: any = {
+            isActive: true
+        };
+
+        if (desde || hasta) {
+
+            filtro.createdAt = {};
+
+            if (desde) {
+                filtro.createdAt.$gte = new Date(desde);
+            }
+
+            if (hasta) {
+
+                const fechaFin = new Date(hasta);
+
+                fechaFin.setHours(23,59,59,999);
+
+                filtro.createdAt.$lte = fechaFin;
+            }
+        }
+
+        return this.postModel.aggregate([
+
+            {
+                $match: filtro
+            },
+
+            {
+                $group: {
+                    _id: "$user",
+                    cantidad: {
+                        $sum: 1
+                    }
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "usuario"
+                }
+            },
+
+            {
+                $unwind: "$usuario"
+            },
+
+            {
+                $project: {
+
+                    _id: 0,
+
+                    usuario: "$usuario.nombreUsuario",
+
+                    cantidad: 1
+
+                }
+            },
+
+            {
+                $sort: {
+                    cantidad: -1
+                }
+            }
+
+        ]);
     }
 }

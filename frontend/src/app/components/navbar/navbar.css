@@ -149,3 +149,20 @@
     background: linear-gradient(90deg, #74ACDF, #A3CFF1);
     box-shadow: 0 0 10px rgba(116, 172, 223, 0.5); /* Resplandor celeste */
 }
+
+/* =========================================
+   LINK DE ADMINISTRADOR (NEÓN VIOLETA)
+========================================= */
+.admin-link {
+  color: #c084fc !important; /* Fuerza el color violeta sobre el link por defecto */
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 8px rgba(147, 51, 234, 0.4);
+}
+
+.admin-link:hover,
+.admin-link.active-link {
+  color: #d8b4fe !important;
+  text-shadow: 0 0 15px rgba(147, 51, 234, 0.8);
+}
