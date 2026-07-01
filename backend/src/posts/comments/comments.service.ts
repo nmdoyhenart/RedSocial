@@ -56,4 +56,122 @@ export class CommentsService {
 
         return { comentarios, total };
     }
+
+    // GET: Cantidad de comentarios por usuario, filtrable por rango de fechas
+    async obtenerComentariosPorUsuario(desde?: string, hasta?: string) {
+        const filtro: any = {};
+
+        if (desde || hasta) {
+            filtro.createdAt = {};
+
+            if (desde) {
+                filtro.createdAt.$gte = new Date(desde);
+            }
+
+            if (hasta) {
+                const fechaFin = new Date(hasta);
+                fechaFin.setHours(23, 59, 59, 999);
+                filtro.createdAt.$lte = fechaFin;
+            }
+        }
+
+        return this.commentModel.aggregate([
+            {
+                $match: filtro
+            },
+            {
+                $group: {
+                    _id: "$autor",
+                    cantidad: {
+                        $sum: 1
+                    }
+                }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "usuario"
+                }
+            },
+            {
+                $unwind: "$usuario"
+            },
+            {
+                $project: {
+
+                    _id: 0,
+
+                    usuario: "$usuario.nombreUsuario",
+
+                    cantidad: 1
+
+                }
+            },
+            {
+                $sort: {
+                    cantidad: -1
+                }
+            }
+        ]);
+    }
+    
+    // GET: Cantidad de comentarios por publicación, filtrable por rango de fechas
+    async obtenerComentariosPorPublicacion(desde?: string, hasta?: string) {
+        const filtro: any = {};
+
+        if (desde || hasta) {
+            filtro.createdAt = {};
+
+            if (desde) {
+                filtro.createdAt.$gte = new Date(desde);
+            }
+
+            if (hasta) {
+                const fechaFin = new Date(hasta);
+                fechaFin.setHours(23, 59, 59, 999);
+                filtro.createdAt.$lte = fechaFin;
+            }
+        }
+        return this.commentModel.aggregate([
+            {
+                $match: filtro
+            },
+            {
+                $group: {
+                    _id: "$publicacion",
+                    cantidad: {
+                        $sum: 1
+                    }
+                }
+            },
+            {
+                $lookup: {
+                    from: "posts",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "publicacion"
+                }
+            },
+            {
+                $unwind: "$publicacion"
+            },
+            {
+                $project: {
+                    _id: 0,
+                    publicacion: {
+                        $substrCP: ["$publicacion.title", 0, 25]
+                    },
+                    fecha: "$publicacion.createdAt",
+                    cantidad: 1
+                }
+            },
+            {
+                $sort: {
+                    fecha: 1
+                }
+            }
+        ]);
+    }
 }

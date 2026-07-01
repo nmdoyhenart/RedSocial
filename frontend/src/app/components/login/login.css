@@ -316,6 +316,26 @@
     align-self: center; /* Centra el botón en la tarjeta */
 }
 
+.btn-cancel {
+  background: rgba(255, 0, 60, 0.2);
+  color: #ff003c;
+  border: 1px solid #ff003c;
+  padding: 12px 30px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 15px rgba(255, 0, 60, 0.2);
+  width: 100%;
+}
+
+.btn-cancel:hover {
+  background: #ff003c;
+  color: #ffffff;
+  box-shadow: 0 0 30px rgba(255, 0, 60, 0.6);
+}
+
 /* --- BOTÓN DEL OJO (SHOW PASSWORD) --- */
 .eye-btn {
     position: absolute;

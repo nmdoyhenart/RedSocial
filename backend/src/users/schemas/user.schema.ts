@@ -37,6 +37,9 @@ export class User {
 
   @Prop({ type: String, enum: RolUsuario, default: RolUsuario.USUARIO })
   perfil!: RolUsuario;
+
+  @Prop({ default: true })
+  activo!: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

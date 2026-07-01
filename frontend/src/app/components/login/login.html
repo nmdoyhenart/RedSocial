@@ -58,5 +58,26 @@
             </div>
         </div>
         }
+
+        @if (mostrarModalDenegado) {
+            <div class="fogon-modal-overlay">
+                <div class="fogon-modal-card pop-in">
+                    <h3 class="modal-title" style="color: #ff4d4d; font-weight: bold; letter-spacing: 2px;">CUENTA SUSPENDIDA</h3>
+                    
+                    <p class="modal-text" style="margin-top: 10px;">
+                        OPERACIÓN RECHAZADA. ESTA CUENTA HA SIDO SUSPENDIDA POR UN ADMINISTRADOR
+                    </p>
+                    <p class="modal-text" style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 20px;">
+                        Contactá a soporte para más información.
+                    </p>
+                    
+                    <div class="modal-actions">
+                        <button (click)="cerrarModalDenegado()" class="btn-cancel" style="width: 100%; border-color: #ff4d4d; color: #ff4d4d;">
+                            <span>ENTENDIDO</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>

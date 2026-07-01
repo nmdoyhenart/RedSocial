@@ -1,4 +1,4 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './schemas/user.schema';
@@ -53,5 +53,45 @@ export class UsersService {
     return this.userModel.findOne({
       $or: [{ correo: identificador }, { nombreUsuario: identificador }],
     }).exec();
+  }
+
+  // Listar todos los usuarios para el panel de administrador
+  async findAll(): Promise<User[]> {
+    try {
+      // Proyectamos los campos necesarios para la tabla
+      return await this.userModel
+        .find({}, 'nombreUsuario nombre apellido perfil correo activo')
+        .exec();
+    } catch (error) {
+      throw new InternalServerErrorException('Error al obtener el listado de usuarios');
+    }
+  }
+
+  // Alta / Baja lógica (Deshabilitar / Rehabilitar)
+  async cambiarEstado(id: string, estado: boolean): Promise<{ mensaje: string }> {
+    try {
+      await this.userModel.findByIdAndUpdate(id, { activo: estado }).exec();
+      return { 
+        mensaje: estado ? 'Usuario rehabilitado exitosamente.' : 'Usuario deshabilitado exitosamente.' 
+      };
+    } catch (error) {
+      throw new InternalServerErrorException('Error al actualizar el estado del usuario');
+    }
+  }
+
+  // Métrica de usuarios activos vs inactivos para los gráficos del administrador
+  async obtenerMetricasUsuarios() {
+    try {
+      const activos = await this.userModel.countDocuments({ activo: true }).exec();
+      const inactivos = await this.userModel.countDocuments({ activo: false }).exec();
+      
+      return {
+        activos,
+        inactivos,
+        total: activos + inactivos
+      };
+    } catch (error) {
+      throw new InternalServerErrorException('Error al calcular estadísticas de usuarios');
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
     // Redirige al login apenas entras a la raíz
@@ -26,7 +27,18 @@ export const routes: Routes = [
     path: 'publicacion/:id', 
     loadComponent: () => import('./components/post-detalle/post-detalle.component').then(m => m.PostDetalleComponent) 
     },
-    
+    {
+        path: 'admin',
+        canActivate: [AdminGuard],
+        loadComponent: () => import('./components/panel-admin/panel-admin.component').then(m => m.PanelAdminComponent)
+    },
+    {
+    path: 'dashboard-admin',
+    canActivate: [AdminGuard],
+    loadComponent: () =>
+        import('./components/dashboard-admin/dashboard-admin.component')
+        .then(m => m.DashboardAdminComponent)
+    },
     // Si el usuario escribe cualquier cosa en la URL, lo envia al login
     { path: '**', redirectTo: 'login' } 
 ];
